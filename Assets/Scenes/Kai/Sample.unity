@@ -914,7 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RippleMaterial: {fileID: 2100000, guid: c2ff5b64c701233419437fb74f05fe5d, type: 2}
-  maxAmount: 50
+  maxAmount: 5
   friction: 10
 --- !u!114 &1560514270
 MonoBehaviour:
