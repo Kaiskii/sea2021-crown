@@ -8,6 +8,15 @@ public class BasicMovement : MonoBehaviour
     private float speed;
     public Rigidbody2D body;
 
+    [SerializeField]
+    private float shakeTimer;
+
+    [SerializeField]
+    private float amplitude;
+
+    [SerializeField]
+    private float frequency;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -20,6 +29,11 @@ public class BasicMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
             body.velocity = new Vector2(body.velocity.x, speed);
+
+        if (Input.GetKeyDown(KeyCode.G)) {
+            ScreenShake.Instance.ShakeCamera(amplitude, shakeTimer, frequency);
+        }
+            
     }
 
 }
