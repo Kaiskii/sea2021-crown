@@ -120,6 +120,11 @@ public class ResourceIndex : ScriptableObject
         var index = Resources.Load<ResourceIndex>("ResourceIndex");
         assetTypeDictionary = new Dictionary<string, ResourceAsset>();
 
+        if(!index){
+          Debug.LogWarning("Failed to load Resource Index! Is it created?");
+          return;
+        }
+
         string assetID = "";
         foreach(ResourceType resource in index.resources)
         {
