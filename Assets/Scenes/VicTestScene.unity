@@ -401,13 +401,20 @@ MonoBehaviour:
   active: 1
   maxMoveSpeed: 10
   moveAccel: 2
-  gravityFactor: 10
+  gravityFactor: 2.5
   crushStates: 4
+  coyoteTime: 0.3
+  jumpBufferTime: 0.1
   jumpPower:
   - 0
   - 4
   - 8
   - 10
+  crushHeights:
+  - 0.1
+  - 0.4
+  - 0.7
+  - 1
 --- !u!1 &1601039087
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,14 +16,23 @@ public class CharacterMovement : MonoBehaviour
     float moveAccel = 2f;
 
     [SerializeField]
-    float gravityFactor = 10f;
+    float gravityFactor = 2.5f;
 
     [SerializeField]
     int crushStates = 4;
     int curCrushState = 3;
 
     [SerializeField]
+    float coyoteTime = 0.3f;
+    float coyoteTimer = 0f;
+    [SerializeField]
+    float jumpBufferTime = 0.1f;
+    float jumpBufferTimer = 0f;
+    [SerializeField]
     float[] jumpPower = {0f, 5f, 10f, 15f};
+
+    [SerializeField]
+    float[] crushHeights = {0.1f, 0.4f, 0.7f, 1f};
 
     float curMoveSpeed = 0f;
 
@@ -62,12 +71,28 @@ public class CharacterMovement : MonoBehaviour
 
     void doJump()
     {
+        if(grounded)
+        {
+            coyoteTimer = coyoteTime;
+        }
+        else
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+
         if(Input.GetButtonDown("Jump"))
         {
-            if(grounded)
-            {
-                characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
-            }
+            jumpBufferTimer = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferTimer -= Time.deltaTime;
+        }
+
+        if(jumpBufferTimer >= 0f && coyoteTimer > 0f)
+        {
+            characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
+            jumpBufferTimer = 0f;
         }
     }
 
@@ -75,7 +100,6 @@ public class CharacterMovement : MonoBehaviour
     {
         foreach (ContactPoint2D contact in other.contacts)
         {
-            Debug.Log(contact.normal.y);
 			if(contact.normal.y > 0.6f)
 			{
 				grounded = true;
@@ -98,7 +122,7 @@ public class CharacterMovement : MonoBehaviour
 
         if(characterRb.velocity.y <= 5)
         {
-            characterRb.velocity += new Vector2(0f, Physics2D.gravity.y * Time.deltaTime);
+            characterRb.velocity += new Vector2(0f, (gravityFactor-1) * Physics2D.gravity.y * Time.deltaTime);
         }
     }
 }
