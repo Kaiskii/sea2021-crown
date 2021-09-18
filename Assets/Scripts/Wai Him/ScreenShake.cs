@@ -31,10 +31,10 @@ public class ScreenShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (shakeTimer > 0) 
+        if (shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
-            if (shakeTimer <= 0f) 
+            if (shakeTimer <= 0f)
             {
                 CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
                     cinematicVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
