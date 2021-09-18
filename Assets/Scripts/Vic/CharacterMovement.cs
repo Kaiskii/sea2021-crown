@@ -6,23 +6,26 @@ public class CharacterMovement : MonoBehaviour
 {
 	//[SerializeField]
 	Rigidbody2D characterRb;
+	BoxCollider2D characterCollider;
+
 
 	[SerializeField]
 	bool active = true;
 
 	[SerializeField]
 	float maxMoveSpeed = 10f;
+
+	/**
 	[SerializeField]
 	float moveAccel = 20f;
 	float dragStep = 0f;
 	[SerializeField]
 	float dragStepRate = 20f;
-
+	**/
 	[SerializeField]
 	float gravityFactor = 2.5f;
 
 	[SerializeField]
-	int crushStates = 4;
 	int curCrushState = 3;
 
 	[SerializeField]
@@ -35,16 +38,19 @@ public class CharacterMovement : MonoBehaviour
 	float[] jumpPower = {0f, 5f, 10f, 15f};
 
 	[SerializeField]
-	float[] crushHeights = {0.1f, 0.4f, 0.7f, 1f};
+	float[] colliderHeight = {0.1f, 0.4f, 0.7f, 1f};
 
 	float curMoveSpeed = 0f;
 
 	bool grounded = false;
 
+	bool willBeCrushed = false;
+
 
 	void Start()
 	{
 		characterRb = GetComponent<Rigidbody2D>();
+		characterCollider = GetComponent<BoxCollider2D>();
 	}
 
 	// Update is called once per frame
@@ -57,36 +63,42 @@ public class CharacterMovement : MonoBehaviour
 
 	void doMovement()
 	{
-
-		if(Input.GetAxis("Horizontal") != 0)
+		if(active)
 		{
-			/**
-			curMoveSpeed += Input.GetAxis("Horizontal")*moveAccel*Time.deltaTime;
-			curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxMoveSpeed, maxMoveSpeed);
-			dragStep = 0f;
-			**/
-			if(Input.GetAxis("Horizontal") > 0)
+			if(Input.GetAxis("Horizontal") != 0)
 			{
-				curMoveSpeed =  maxMoveSpeed * Time.deltaTime;
+				/**
+				curMoveSpeed += Input.GetAxis("Horizontal")*moveAccel*Time.deltaTime;
+				curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxMoveSpeed, maxMoveSpeed);
+				dragStep = 0f;
+				**/
+				if(Input.GetAxis("Horizontal") > 0)
+				{
+					curMoveSpeed =  maxMoveSpeed * Time.deltaTime;
+				}
+				else
+				{
+					curMoveSpeed =  -maxMoveSpeed * Time.deltaTime;
+				}
 			}
 			else
 			{
-				curMoveSpeed =  -maxMoveSpeed * Time.deltaTime;
+				/**
+				if(dragStep < 1)
+				{
+					dragStep += dragStepRate * Time.deltaTime;
+				}
+				else
+				{
+					dragStep = 1f;
+				}
+				curMoveSpeed = Mathf.Lerp(curMoveSpeed, 0, dragStep);
+				**/
+				curMoveSpeed = 0;
 			}
 		}
 		else
 		{
-			/**
-			if(dragStep < 1)
-			{
-				dragStep += dragStepRate * Time.deltaTime;
-			}
-			else
-			{
-				dragStep = 1f;
-			}
-			curMoveSpeed = Mathf.Lerp(curMoveSpeed, 0, dragStep);
-			**/
 			curMoveSpeed = 0;
 		}
 
@@ -96,28 +108,32 @@ public class CharacterMovement : MonoBehaviour
 
 	void doJump()
 	{
-		if(grounded)
+		if(active)
 		{
-			coyoteTimer = coyoteTime;
-		}
-		else
-		{
-			coyoteTimer -= Time.deltaTime;
-		}
+			if(grounded)
+			{
+				coyoteTimer = coyoteTime;
+			}
+			else
+			{
+				coyoteTimer -= Time.deltaTime;
+			}
 
-		if(Input.GetButtonDown("Jump"))
-		{
-			jumpBufferTimer = jumpBufferTime;
-		}
-		else
-		{
-			jumpBufferTimer -= Time.deltaTime;
-		}
+			if(Input.GetButtonDown("Jump"))
+			{
+				jumpBufferTimer = jumpBufferTime;
+			}
+			else
+			{
+				jumpBufferTimer -= Time.deltaTime;
+			}
 
-		if(jumpBufferTimer >= 0f && coyoteTimer > 0f)
-		{
-			characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
-			jumpBufferTimer = 0f;
+			if(jumpBufferTimer >= 0f && coyoteTimer > 0f)
+			{
+				characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
+				willBeCrushed = true;
+				jumpBufferTimer = 0f;
+			}
 		}
 	}
 
@@ -133,7 +149,20 @@ public class CharacterMovement : MonoBehaviour
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D contact)
+	void OnCollisionEnter2D(Collision2D other) 
+	{
+		foreach (ContactPoint2D contact in other.contacts)
+		{
+			if(willBeCrushed && contact.normal.y > 0.6f)
+			{
+				crushCharacter();
+				willBeCrushed = false;
+				break;
+			}
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D contact) 
 	{
 		grounded = false;
 	}
@@ -149,6 +178,16 @@ public class CharacterMovement : MonoBehaviour
 		{
 			characterRb.velocity += new Vector2(0f, (gravityFactor-1) * Physics2D.gravity.y * Time.deltaTime);
 		}
+	}
+
+	public void crushCharacter()
+	{
+		if(curCrushState > 0)
+		{
+			curCrushState -= 1;
+		}
+		characterCollider.size = new Vector2 (characterCollider.size.x, colliderHeight[curCrushState]);
+		characterCollider.offset = new Vector2 (characterCollider.offset.x, colliderHeight[curCrushState]/2);
 	}
 }
 
