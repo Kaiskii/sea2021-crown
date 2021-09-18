@@ -1,26 +1,39 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerThrow : MonoBehaviour {
 
   [SerializeField] GameObject crown;
+  [SerializeField] GameObject visualCrown;
+
+  GameObject physicsCrown;
+
   [SerializeField] bool isMouseHold = false;
 
+  [SerializeField] float torqueStrength = 20.0f;
   [SerializeField] float mouseStrength = 10.0f;
   [SerializeField] float mouseHoldTime = 0.2f;
   [SerializeField] float mouseHoldTimer;
 
   [SerializeField] Vector2 clampStrength = new Vector2(10.0f, 10.0f);
 
+  CinemachineVirtualCamera cvc;
+
   Vector3 mouseStartPos;
   Vector3 worldPosition;
 
   void Start() {
     mouseHoldTimer = mouseHoldTime;
+    cvc = GameObject.FindGameObjectWithTag("CloseCamera").GetComponent<CinemachineVirtualCamera>();
   }
 
   void Update() {
     DoMouseButton();
     DoMouseButtonUp();
+
+    if (physicsCrown && isMouseHold) {
+      physicsCrown.transform.position = this.transform.position;
+    }
   }
 
   Vector2 CalculateMousePosition2D() {
@@ -33,8 +46,11 @@ public class PlayerThrow : MonoBehaviour {
     if (Input.GetMouseButton(0)) {
       if (!isMouseHold) {
         if (mouseHoldTimer <= 0.0f) {
+          visualCrown.SetActive(false);
           isMouseHold = true;
           mouseStartPos = CalculateMousePosition2D();
+          physicsCrown = Instantiate(crown, this.transform.position, Quaternion.identity);
+          physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
 
         mouseHoldTimer -= Time.deltaTime;
@@ -48,7 +64,9 @@ public class PlayerThrow : MonoBehaviour {
       if (isMouseHold) {
         worldPosition = CalculateMousePosition2D();
 
-        var crownGO = Instantiate(crown, this.transform.localPosition, Quaternion.identity);
+        cvc.m_Follow = physicsCrown.transform;
+
+        physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
         Vector2 normalizedVector = mouseStartPos - worldPosition;
 
@@ -59,11 +77,28 @@ public class PlayerThrow : MonoBehaviour {
 
         Vector2 multipliedVector = clamp * 10.0f * mouseStrength;
 
-        crownGO.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
+        physicsCrown.GetComponent<Rigidbody2D>().AddTorque(torqueStrength);
+        physicsCrown.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
+        this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
       }
 
       mouseHoldTimer = mouseHoldTime;
       isMouseHold = false;
     }
   }
+
+  private void OnTriggerExit2D(Collider2D other) {
+    if (other.CompareTag("CrownPhysics")) {
+      // Setting Properties to become an NPC
+      this.GetComponent<PlayerReceive>().enabled = true;
+      this.GetComponent<CharacterMovement>().enabled = false;
+
+      foreach (Transform tr in this.transform.parent) {
+        tr.gameObject.layer = LayerMask.NameToLayer("OtherNPC");
+      }
+
+      this.enabled = false;
+    }
+  }
+
 }

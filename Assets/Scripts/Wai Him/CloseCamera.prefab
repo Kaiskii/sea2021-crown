@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 9116049955801881444}
   m_Layer: 0
   m_Name: CloseCamera
-  m_TagString: Untagged
+  m_TagString: CloseCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

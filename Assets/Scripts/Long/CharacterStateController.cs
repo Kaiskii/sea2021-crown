@@ -25,14 +25,6 @@ public class CharacterStateController : MonoBehaviour
     idle.SetTweenID(normalTweenID);
   }
 
-  void Update()
-  {
-    if (Input.GetKeyDown(KeyCode.A)) {
-      state = !state;
-      SetPanicking(state);
-    }
-  }
-
   public void SetPanicking(bool state)
   {
     animator.SetBool("IsPanicking",state);
