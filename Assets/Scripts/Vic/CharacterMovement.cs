@@ -12,6 +12,7 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	bool active = true;
 
+	/**
 	[SerializeField]
 	float maxMoveSpeed = 10f;
 	[SerializeField]
@@ -19,12 +20,11 @@ public class CharacterMovement : MonoBehaviour
 	float dragStep = 0f;
 	[SerializeField]
 	float dragStepRate = 20f;
+	**/
 
 	[SerializeField]
 	float gravityFactor = 2.5f;
 
-	[SerializeField]
-	int crushStates = 4;
 	int curCrushState = 3;
 
 	[SerializeField]
@@ -37,7 +37,8 @@ public class CharacterMovement : MonoBehaviour
 	float[] jumpPower = {0f, 5f, 10f, 15f};
 
 	[SerializeField]
-	float[] crushHeights = {0.1f, 0.4f, 0.7f, 1f};
+	float[] colliderHeight = {0.2f, 0.8f, 1.4f, 2f};
+
 
 	bool willBeCrushed = false;
 
