@@ -6,7 +6,8 @@ public class CharacterMovement : MonoBehaviour
 {
 	//[SerializeField]
 	Rigidbody2D characterRb;
-  CharacterStateController characterState;
+	BoxCollider2D characterCollider;
+ 	CharacterStateController characterState;
 
 	[SerializeField]
 	bool active = true;
@@ -38,18 +39,20 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	float[] crushHeights = {0.1f, 0.4f, 0.7f, 1f};
 
-  [SerializeField]
-  float walkCycleDelay = 0.5f;
-  [SerializeField]
-  string walkSoundName = "WalkPeasant";
-  [SerializeField]
-  string walkParticleName = "WalkDust";
-  [SerializeField]
-  string jumpParticleName = "CrownPuff";
-  [SerializeField]
-  string jumpSoundName = "JumpPeasant";
+	bool willBeCrushed = false;
 
-  float elapsedTime = 0;
+  	[SerializeField]
+  	float walkCycleDelay = 0.5f;
+  	[SerializeField]
+  	string walkSoundName = "WalkPeasant";
+  	[SerializeField]
+  	string walkParticleName = "WalkDust";
+  	[SerializeField]
+  	string jumpParticleName = "CrownPuff";
+  	[SerializeField]
+  	string jumpSoundName = "JumpPeasant";
+
+  	float elapsedTime = 0;
 
 	float curMoveSpeed = 0f;
 
@@ -59,7 +62,8 @@ public class CharacterMovement : MonoBehaviour
 	void Start()
 	{
 		characterRb = GetComponent<Rigidbody2D>();
-    characterState = GetComponent<CharacterStateController>();
+		characterCollider = GetComponent<BoxCollider2D>();
+		characterState = GetComponent<CharacterStateController>();
 	}
 
 	// Update is called once per frame
@@ -68,7 +72,7 @@ public class CharacterMovement : MonoBehaviour
 		doMovement();
 		doJump();
 		doGravity();
-    doFX();
+	doFX();
 	}
 
 	void doMovement()
@@ -134,22 +138,23 @@ public class CharacterMovement : MonoBehaviour
 		{
 			characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
 			jumpBufferTimer = 0f;
+			willBeCrushed = true;
 
-      SoundManager.Instance?.Play(jumpSoundName);
-      ParticleManager.Instance.CreateParticle(jumpParticleName,transform.position);
+	 		SoundManager.Instance?.Play(jumpSoundName);
+	 		ParticleManager.Instance.CreateParticle(jumpParticleName,transform.position);
 		}
 	}
 
   void doFX()
   {
-    elapsedTime += Time.deltaTime;
-    if(grounded && curMoveSpeed!=0 &&elapsedTime >= walkCycleDelay)
-    {
-      elapsedTime = 0;
-      SoundManager.Instance?.Play(walkSoundName);
-      ParticleManager.Instance.CreateParticle(walkParticleName,transform.position);
-    }
-    characterState.SetMovementDirection(curMoveSpeed);
+	elapsedTime += Time.deltaTime;
+	if(grounded && curMoveSpeed!=0 &&elapsedTime >= walkCycleDelay)
+	{
+	  elapsedTime = 0;
+	  SoundManager.Instance?.Play(walkSoundName);
+	  ParticleManager.Instance.CreateParticle(walkParticleName,transform.position);
+	}
+	characterState.SetMovementDirection(curMoveSpeed);
   }
 
 	void OnCollisionStay2D(Collision2D other)
@@ -159,6 +164,19 @@ public class CharacterMovement : MonoBehaviour
 			if(contact.normal.y > 0.6f)
 			{
 				grounded = true;
+				break;
+			}
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D other) 
+	{
+		foreach (ContactPoint2D contact in other.contacts)
+		{
+			if(willBeCrushed && contact.normal.y > 0.6f)
+			{
+				crushCharacter();
+				willBeCrushed = false;
 				break;
 			}
 		}
@@ -180,6 +198,21 @@ public class CharacterMovement : MonoBehaviour
 		{
 			characterRb.velocity += new Vector2(0f, (gravityFactor-1) * Physics2D.gravity.y * Time.deltaTime);
 		}
+
+		if(coyoteTimer <= 0f)
+		{
+			if(!willBeCrushed) willBeCrushed = true;
+		}
+	}
+
+	public void crushCharacter()
+	{
+		if(curCrushState > 0)
+		{
+			curCrushState -= 1;
+		}
+		characterCollider.size = new Vector2 (characterCollider.size.x, colliderHeight[curCrushState]);
+		characterCollider.offset = new Vector2 (characterCollider.offset.x, colliderHeight[curCrushState]/2);
 	}
 }
 
