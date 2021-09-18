@@ -283,22 +283,22 @@ BoxCollider2D:
   m_GameObject: {fileID: 215740915}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: d361b0324eaf9e945ad7c65d785f74d1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &215740917
 Rigidbody2D:
@@ -361,7 +361,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 2040199829075420517, guid: 4c1299da8a2a6d14ca1dddf2d2ad64b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -400,22 +400,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   maxMoveSpeed: 10
-  moveAccel: 5000
-  dragStepRate: 2000
   gravityFactor: 2.5
-  crushStates: 4
+  curCrushState: 3
   coyoteTime: 0.3
   jumpBufferTime: 0.1
   jumpPower:
   - 0
-  - 4
+  - 6
   - 8
   - 10
-  crushHeights:
-  - 0.1
-  - 0.4
-  - 0.7
-  - 1
+  colliderHeight:
+  - 0.2
+  - 0.8
+  - 1.4
+  - 2
 --- !u!1 &1601039087
 GameObject:
   m_ObjectHideFlags: 0
