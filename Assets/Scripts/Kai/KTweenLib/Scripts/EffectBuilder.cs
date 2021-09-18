@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +27,8 @@ namespace KTweenLib.Scripts {
 
     public EffectBuilder ClearAllEffects() {
       this.effects.Clear();
+
+      this.Owner.StopAllCoroutines();
       return this;
     }
   }

@@ -9,7 +9,10 @@ public class playerIdle : MonoBehaviour {
   PlayerTweenSO tweenData;
   YieldInstruction _wait;
 
+  [SerializeField] Vector3 originalTransformScale;
+
   void Start() {
+    originalTransformScale = this.transform.localScale;
     fx = new EffectBuilder(this);
     SetTweenID(tweenID);
   }
@@ -25,8 +28,9 @@ public class playerIdle : MonoBehaviour {
     _wait = new WaitForSeconds(tweenData.waitTime);
 
     fx.ClearAllEffects();
+
     fx.AddEffect(
-      new ScaleTransform(this.transform, tweenData.endSize, tweenData.scaleSpeed, _wait, tweenData.animCurv, true, true)
+      new ScaleTransform(this.transform, originalTransformScale, tweenData.endSize, tweenData.scaleSpeed, _wait, tweenData.animCurv, true, true)
     );
 
     fx.ExecuteAllEffects();
