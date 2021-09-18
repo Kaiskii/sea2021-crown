@@ -84,10 +84,6 @@ public class PlayerThrow : MonoBehaviour {
         // Setting Properties to become an NPC
         this.GetComponent<PlayerReceive>().enabled = true;
         this.GetComponent<CharacterMovement>().enabled = false;
-
-        foreach (Transform tr in this.transform.parent) {
-          tr.gameObject.layer = LayerMask.NameToLayer("OtherNPC");
-        }
       }
 
       mouseHoldTimer = mouseHoldTime;
@@ -97,7 +93,10 @@ public class PlayerThrow : MonoBehaviour {
 
   private void OnTriggerExit2D(Collider2D other) {
     if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer == this.gameObject) {
-      Debug.Log("EEEEE");
+      foreach (Transform tr in this.transform.parent) {
+        tr.gameObject.layer = LayerMask.NameToLayer("OtherNPC");
+      }
+
       ActivePlayerManager.Instance.ActivePlayer = null;
       this.enabled = false;
     }
