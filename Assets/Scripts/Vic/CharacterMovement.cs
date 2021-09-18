@@ -137,7 +137,7 @@ public class CharacterMovement : MonoBehaviour
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D other) 
+	void OnCollisionStay2D(Collision2D other)
 	{
 		foreach (ContactPoint2D contact in other.contacts)
 		{
