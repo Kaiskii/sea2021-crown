@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc532b2a2629a99488b651c96b283649, type: 3}
-  m_Name: 1_MovementTween
+  m_Name: 2_GooTween
   m_EditorClassIdentifier: 
-  endSize: {x: 1.08, y: 0.94, z: 0}
+  endSize: {x: 0.9, y: 1.2, z: 1}
   scaleSpeed: 3
-  waitTime: 0.1
+  waitTime: 0.5
   animCurv:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

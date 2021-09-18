@@ -21,6 +21,8 @@ public class CharacterStateController : MonoBehaviour
     idle = GetComponent<playerIdle>();
     animator = GetComponent<Animator>();
     rend = GetComponent<SpriteRenderer>();
+
+    idle.SetTweenID(normalTweenID);
   }
 
   void Update()
