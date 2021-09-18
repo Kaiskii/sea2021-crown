@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e79b76a66b747439ec366a8d6d9d97, type: 3}
   m_Name: ParticleLibrary
   m_EditorClassIdentifier: 
-  particles: []
+  particles:
+  - name: CrownPuff
+    particle: {fileID: 3753012346415140840, guid: e067447436e1f2e479418715afa5a155, type: 3}
+    rotationOffset: 0
+  - name: WalkDust
+    particle: {fileID: 1682501626035591704, guid: f7d2e166ec28f9e4c9c214923e592639, type: 3}
+    rotationOffset: 0

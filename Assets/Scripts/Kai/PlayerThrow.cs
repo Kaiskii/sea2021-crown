@@ -17,6 +17,8 @@ public class PlayerThrow : MonoBehaviour {
 
   [SerializeField] Vector2 clampStrength = new Vector2(10.0f, 10.0f);
 
+  [SerializeField] Vector3 originalTransformPos;
+
   CinemachineVirtualCamera cvc;
 
   Vector3 mouseStartPos;
@@ -50,7 +52,9 @@ public class PlayerThrow : MonoBehaviour {
           isMouseHold = true;
           mouseStartPos = CalculateMousePosition2D();
           physicsCrown = Instantiate(crown, this.transform.position, Quaternion.identity);
+          physicsCrown.layer = LayerMask.NameToLayer("VisualCrown");
           physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+          originalTransformPos = this.transform.position;
         }
 
         mouseHoldTimer -= Time.deltaTime;
@@ -68,7 +72,7 @@ public class PlayerThrow : MonoBehaviour {
 
         physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        Vector2 normalizedVector = mouseStartPos - worldPosition;
+        Vector2 normalizedVector = this.transform.position - originalTransformPos + mouseStartPos - worldPosition;
 
         Vector2 clamp = new Vector2(
           Mathf.Clamp(normalizedVector.x, -clampStrength.x, clampStrength.x),
@@ -84,21 +88,13 @@ public class PlayerThrow : MonoBehaviour {
         // Setting Properties to become an NPC
         this.GetComponent<PlayerReceive>().enabled = true;
         this.GetComponent<CharacterMovement>().enabled = false;
+        this.enabled = false;
+
+        physicsCrown.layer = LayerMask.NameToLayer("CrownProjectile");
       }
 
       mouseHoldTimer = mouseHoldTime;
       isMouseHold = false;
-    }
-  }
-
-  private void OnTriggerExit2D(Collider2D other) {
-    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer == this.gameObject) {
-      foreach (Transform tr in this.transform.parent) {
-        tr.gameObject.layer = LayerMask.NameToLayer("OtherNPC");
-      }
-
-      ActivePlayerManager.Instance.ActivePlayer = null;
-      this.enabled = false;
     }
   }
 }

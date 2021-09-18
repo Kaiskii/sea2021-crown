@@ -4,6 +4,8 @@ using UnityEngine;
 using Cinemachine;
 
 public class PlayerReceive : MonoBehaviour {
+  [SerializeField] GameObject visualCrown;
+
   CinemachineVirtualCamera cvc;
 
   void Start() {
@@ -11,20 +13,15 @@ public class PlayerReceive : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D other) {
-    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer != this.gameObject) {
+    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.activePlayer != this.gameObject) {
       Destroy(other.gameObject);
+      ActivePlayerManager.Instance.activePlayer = this.gameObject;
 
       cvc.m_Follow = this.transform;
 
-      // Setting Properties to become Player
-      foreach (Transform tr in this.transform.parent) {
-        tr.gameObject.layer = LayerMask.NameToLayer("Player");
-      }
-
       this.GetComponent<CharacterMovement>().enabled = true;
       this.GetComponent<PlayerThrow>().enabled = true;
-
-      ActivePlayerManager.Instance.ActivePlayer = this.gameObject;
+      visualCrown.SetActive(true);
 
       this.enabled = false;
     }

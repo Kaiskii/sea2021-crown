@@ -35,7 +35,7 @@ public class CharacterStateController : MonoBehaviour
       idle.SetTweenID(normalTweenID);
   }
 
-  public void SetMovementDirection(int dir)
+  public void SetMovementDirection(float dir)
   {
     if(dir == 0)
       animator.SetBool("IsMoving",false);
