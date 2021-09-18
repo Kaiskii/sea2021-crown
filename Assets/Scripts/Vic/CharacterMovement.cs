@@ -10,7 +10,7 @@ public class CharacterMovement : MonoBehaviour
  	CharacterStateController characterState;
 
 	[SerializeField]
-	bool active = true;
+	public bool active = true;
 
 	/**
 	[SerializeField]
@@ -73,76 +73,80 @@ public class CharacterMovement : MonoBehaviour
 		doMovement();
 		doJump();
 		doGravity();
-	doFX();
+		doFX();
 	}
 
 	void doMovement()
 	{
-
-		if(Input.GetAxis("Horizontal") != 0)
+		if(active)
 		{
-			/**
-			curMoveSpeed += Input.GetAxis("Horizontal")*moveAccel*Time.deltaTime;
-			curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxMoveSpeed, maxMoveSpeed);
-			dragStep = 0f;
-			**/
-			if(Input.GetAxis("Horizontal") > 0)
+			if(Input.GetAxis("Horizontal") != 0)
 			{
-				curMoveSpeed =  maxMoveSpeed * Time.deltaTime;
+				/**
+				curMoveSpeed += Input.GetAxis("Horizontal")*moveAccel*Time.deltaTime;
+				curMoveSpeed = Mathf.Clamp(curMoveSpeed, -maxMoveSpeed, maxMoveSpeed);
+				dragStep = 0f;
+				**/
+				if(Input.GetAxis("Horizontal") > 0)
+				{
+					curMoveSpeed =  maxMoveSpeed * Time.deltaTime;
+				}
+				else
+				{
+					curMoveSpeed =  -maxMoveSpeed * Time.deltaTime;
+				}
 			}
 			else
 			{
-				curMoveSpeed =  -maxMoveSpeed * Time.deltaTime;
+				/**
+				if(dragStep < 1)
+				{
+					dragStep += dragStepRate * Time.deltaTime;
+				}
+				else
+				{
+					dragStep = 1f;
+				}
+				curMoveSpeed = Mathf.Lerp(curMoveSpeed, 0, dragStep);
+				**/
+				curMoveSpeed = 0;
 			}
 		}
-		else
-		{
-			/**
-			if(dragStep < 1)
-			{
-				dragStep += dragStepRate * Time.deltaTime;
-			}
-			else
-			{
-				dragStep = 1f;
-			}
-			curMoveSpeed = Mathf.Lerp(curMoveSpeed, 0, dragStep);
-			**/
-			curMoveSpeed = 0;
-		}
-
 		curMoveSpeed = Input.GetAxis("Horizontal")*maxMoveSpeed;
 		characterRb.velocity = new Vector2(curMoveSpeed, characterRb.velocity.y);
 	}
 
 	void doJump()
 	{
-		if(grounded)
+		if(active)
 		{
-			coyoteTimer = coyoteTime;
-		}
-		else
-		{
-			coyoteTimer -= Time.deltaTime;
-		}
+			if(grounded)
+			{
+				coyoteTimer = coyoteTime;
+			}
+			else
+			{
+				coyoteTimer -= Time.deltaTime;
+			}
 
-		if(Input.GetButtonDown("Jump"))
-		{
-			jumpBufferTimer = jumpBufferTime;
-		}
-		else
-		{
-			jumpBufferTimer -= Time.deltaTime;
-		}
+			if(Input.GetButtonDown("Jump"))
+			{
+				jumpBufferTimer = jumpBufferTime;
+			}
+			else
+			{
+				jumpBufferTimer -= Time.deltaTime;
+			}
 
-		if(jumpBufferTimer >= 0f && coyoteTimer > 0f && grounded)
-		{
-			characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
-			jumpBufferTimer = 0f;
-			willBeCrushed = true;
+			if(jumpBufferTimer >= 0f && coyoteTimer > 0f && grounded)
+			{
+				characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
+				jumpBufferTimer = 0f;
+				willBeCrushed = true;
 
-	 		SoundManager.Instance?.Play(jumpSoundName);
-	 		ParticleManager.Instance.CreateParticle(jumpParticleName,transform.position);
+				SoundManager.Instance?.Play(jumpSoundName);
+				ParticleManager.Instance.CreateParticle(jumpParticleName,transform.position);
+			}
 		}
 	}
 
