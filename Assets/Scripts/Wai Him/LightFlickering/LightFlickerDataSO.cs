@@ -9,5 +9,6 @@ public class LightFlickerDataSO : ScriptableObject
     public float minInt;
     public float maxInt;
 
+    public float lerpDuration = 3;
     public float flickerTime = 1.2f;
 }
