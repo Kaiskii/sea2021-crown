@@ -25,5 +25,10 @@ namespace KTweenLib.Scripts {
         this.Owner.StartCoroutine(fx.Execute());
       }
     }
+
+    public EffectBuilder ClearAllEffects() {
+      this.effects.Clear();
+      return this;
+    }
   }
 }
