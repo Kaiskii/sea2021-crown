@@ -5,8 +5,8 @@ using UnityEngine;
 public class CrownLeavesPlayer : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D other) {
-    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer == this.gameObject) {
-      ActivePlayerManager.Instance.ActivePlayer = null;
+    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.activePlayer == this.gameObject) {
+      ActivePlayerManager.Instance.activePlayer = null;
     }
   }
 }
