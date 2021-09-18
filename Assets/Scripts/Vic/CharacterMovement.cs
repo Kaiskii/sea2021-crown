@@ -130,7 +130,7 @@ public class CharacterMovement : MonoBehaviour
 			jumpBufferTimer -= Time.deltaTime;
 		}
 
-		if(jumpBufferTimer >= 0f && coyoteTimer > 0f)
+		if(jumpBufferTimer >= 0f && coyoteTimer > 0f && grounded)
 		{
 			characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
 			jumpBufferTimer = 0f;
