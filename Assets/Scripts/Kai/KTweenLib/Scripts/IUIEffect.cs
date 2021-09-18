@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 
 namespace KTweenLib.Scripts {
-  public abstract class IUIEffect {
-    public abstract IEnumerator Execute();
+  public interface IUIEffect {
+    IEnumerator Execute();
   }
 }

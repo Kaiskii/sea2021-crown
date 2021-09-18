@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ namespace KTweenLib.Scripts.Effects {
   public class ScaleTransform : IUIEffect {
     [SerializeField]
     Transform _transform { get; }
+
+    [SerializeField]
+    Vector3 originalSize { get; }
 
     [SerializeField]
     Vector3 maxSize { get; }
@@ -27,6 +31,7 @@ namespace KTweenLib.Scripts.Effects {
 
     public ScaleTransform (
       Transform _transform,
+      Vector3 originalSize,
       Vector3 maxSize,
       float scaleSpeed,
       YieldInstruction wait,
@@ -35,6 +40,7 @@ namespace KTweenLib.Scripts.Effects {
       bool loop
     ) {
       this._transform = _transform;
+      this.originalSize = originalSize;
       this.maxSize = maxSize;
       this.scaleSpeed = scaleSpeed;
       this.wait = wait;
@@ -43,11 +49,22 @@ namespace KTweenLib.Scripts.Effects {
       this.loop = loop;
     }
 
-    override public IEnumerator Execute() {
+    public IEnumerator Execute() {
+      float time = 0.0f;
+      Vector3 startingScale = this._transform.localScale;
+      Vector3 currentScale = this._transform.localScale;
+
+      while (_transform.localScale != originalSize) {
+        time += Time.deltaTime * scaleSpeed;
+        Vector3 scale = Vector3.Lerp(currentScale, originalSize, AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f).Evaluate(time));
+        this._transform.localScale = scale;
+        yield return null;
+      }
+
       while (loop) {
-        float time = 0.0f;
-        Vector3 startingScale = this._transform.localScale;
-        Vector3 currentScale = this._transform.localScale;
+        time = 0.0f;
+        startingScale = this._transform.localScale;
+        currentScale = this._transform.localScale;
 
         while (_transform.localScale != maxSize) {
           time += Time.deltaTime * scaleSpeed;
