@@ -14,20 +14,24 @@ public class CharacterStateController : MonoBehaviour
   Animator animator;
   SpriteRenderer rend;
 
+  bool state = false;
+
   void Start()
   {
     idle = GetComponent<playerIdle>();
     animator = GetComponent<Animator>();
     rend = GetComponent<SpriteRenderer>();
+
+    idle.SetTweenID(normalTweenID);
   }
 
-  /*
   void Update()
   {
-    SetPanicking(isPanicking);
-    SetMovementDirection(movementDirection);
+    if (Input.GetKeyDown(KeyCode.A)) {
+      state = !state;
+      SetPanicking(state);
+    }
   }
-  */
 
   public void SetPanicking(bool state)
   {
