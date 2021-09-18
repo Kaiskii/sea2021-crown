@@ -7,17 +7,20 @@ public class CharacterMovement : MonoBehaviour
 	//[SerializeField]
 	Rigidbody2D characterRb;
 
+
 	[SerializeField]
 	bool active = true;
 
 	[SerializeField]
 	float maxMoveSpeed = 10f;
+
+	/**
 	[SerializeField]
 	float moveAccel = 20f;
 	float dragStep = 0f;
 	[SerializeField]
 	float dragStepRate = 20f;
-
+	**/
 	[SerializeField]
 	float gravityFactor = 2.5f;
 
