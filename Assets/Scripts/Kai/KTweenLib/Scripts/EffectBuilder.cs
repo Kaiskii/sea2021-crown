@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +23,13 @@ namespace KTweenLib.Scripts {
       foreach (IUIEffect fx in effects) {
         this.Owner.StartCoroutine(fx.Execute());
       }
+    }
+
+    public EffectBuilder ClearAllEffects() {
+      this.effects.Clear();
+
+      this.Owner.StopAllCoroutines();
+      return this;
     }
   }
 }
