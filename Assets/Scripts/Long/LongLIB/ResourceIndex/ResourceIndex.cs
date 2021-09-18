@@ -20,8 +20,8 @@ public class ResourceIndex : ScriptableObject
 
         etc... any types you want to index
         */
-
-        {"Projectiles",typeof(ProjectileDataSO)}
+        {"IdleTweens",typeof(PlayerTweenSO)},
+        //{"Projectiles",typeof(ProjectileDataSO)}
     };
 
     [MenuItem("LongLib/Create Resource Index")]
@@ -153,6 +153,7 @@ public class ResourceIndex : ScriptableObject
     public static T GetAsset<T>(int id) where T : Object
     {
         ResourceAsset asset;
+
         if (assetTypeDictionary.TryGetValue(typeof(T).FullName+"_"+id, out asset))
             return Resources.Load<T>(asset.assetPath);
         return null;
