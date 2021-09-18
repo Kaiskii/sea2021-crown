@@ -5,28 +5,28 @@ using KTweenLib.Scripts.Effects;
 public class playerIdle : MonoBehaviour {
   EffectBuilder fx;
 
-  [Header("Idle Scale Settings")]
-  [SerializeField] Vector3 endSize;
-  [SerializeField] float scaleSpeed = 3.0f;
-  [SerializeField] float waitTime = 0.2f;
-  [SerializeField] AnimationCurve animCurv;
-
+  [SerializeField] int tweenID = 0;
+  PlayerTweenSO tweenData;
   YieldInstruction _wait;
 
-  private void Awake() {
-    _wait = new WaitForSeconds(waitTime);
+  void Start() {
+    SetTweenID(tweenID);
+    if(!tweenData){
+      return;
+    }
+
+    _wait = new WaitForSeconds(tweenData.waitTime);
     fx = new EffectBuilder(this);
 
     fx.AddEffect(
-      new ScaleTransform(this.transform, endSize, scaleSpeed, _wait, animCurv, true, true)
+      new ScaleTransform(this.transform, tweenData.endSize, tweenData.scaleSpeed, _wait, tweenData.animCurv, true, true)
     );
-  }
 
-  void Start() {
     fx.ExecuteAllEffects();
   }
 
-  void Update() {
-
+  public void SetTweenID(int id)
+  {
+    tweenData = ResourceIndex.GetAsset<PlayerTweenSO>(id);
   }
 }
