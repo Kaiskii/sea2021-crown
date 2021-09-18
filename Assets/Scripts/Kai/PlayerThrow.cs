@@ -80,6 +80,10 @@ public class PlayerThrow : MonoBehaviour {
         physicsCrown.GetComponent<Rigidbody2D>().AddTorque(torqueStrength);
         physicsCrown.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
         this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        // Setting Properties to become an NPC
+        this.GetComponent<PlayerReceive>().enabled = true;
+        this.GetComponent<CharacterMovement>().enabled = false;
       }
 
       mouseHoldTimer = mouseHoldTime;
@@ -88,17 +92,13 @@ public class PlayerThrow : MonoBehaviour {
   }
 
   private void OnTriggerExit2D(Collider2D other) {
-    if (other.CompareTag("CrownPhysics")) {
-      // Setting Properties to become an NPC
-      this.GetComponent<PlayerReceive>().enabled = true;
-      this.GetComponent<CharacterMovement>().enabled = false;
-
+    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer == this.gameObject) {
       foreach (Transform tr in this.transform.parent) {
         tr.gameObject.layer = LayerMask.NameToLayer("OtherNPC");
       }
 
+      ActivePlayerManager.Instance.ActivePlayer = null;
       this.enabled = false;
     }
   }
-
 }

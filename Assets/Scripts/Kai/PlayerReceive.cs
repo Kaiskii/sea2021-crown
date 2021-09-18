@@ -11,7 +11,9 @@ public class PlayerReceive : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D other) {
-    if (other.CompareTag("CrownPhysics")) {
+    if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer != this.gameObject) {
+      Destroy(other.gameObject);
+
       cvc.m_Follow = this.transform;
 
       // Setting Properties to become Player
@@ -21,9 +23,10 @@ public class PlayerReceive : MonoBehaviour {
 
       this.GetComponent<CharacterMovement>().enabled = true;
       this.GetComponent<PlayerThrow>().enabled = true;
-      this.enabled = false;
 
-      Destroy(other.gameObject);
+      ActivePlayerManager.Instance.ActivePlayer = this.gameObject;
+
+      this.enabled = false;
     }
   }
 }
