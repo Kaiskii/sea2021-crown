@@ -12,9 +12,10 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	public bool active = true;
 
-	/**
+	
 	[SerializeField]
 	float maxMoveSpeed = 10f;
+	/**
 	[SerializeField]
 	float moveAccel = 20f;
 	float dragStep = 0f;
