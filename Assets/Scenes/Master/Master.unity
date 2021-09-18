@@ -259,7 +259,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1796106161929949425, guid: c39420bb22d748d4196e355cddf58893, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1796106161929949425, guid: c39420bb22d748d4196e355cddf58893, type: 3}
       propertyPath: m_LocalScale.x
@@ -4307,7 +4307,7 @@ TilemapCollider2D:
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
+  m_ExtrusionFactor: 0.01
 --- !u!66 &1004079977
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -4342,18 +4342,6 @@ CompositeCollider2D:
         Y: -50000000
       - X: 80000000
         Y: -50000000
-      - X: 80000000
-        Y: -20000100
-      - X: 80000041
-        Y: -20000100
-      - X: 80000100
-        Y: -20000041
-      - X: 80000100
-        Y: -9999959
-      - X: 80000041
-        Y: -9999900
-      - X: 80000000
-        Y: -9999900
       - X: 80000000
         Y: 0
       - X: 40000000
@@ -4423,6 +4411,7 @@ GameObject:
   - component: {fileID: 1211955366}
   - component: {fileID: 1211955369}
   - component: {fileID: 1211955370}
+  - component: {fileID: 1211955371}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4561,6 +4550,21 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1211955371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211955365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfbe853032cdbe438e333259585dfd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RippleMaterial: {fileID: 2100000, guid: c2ff5b64c701233419437fb74f05fe5d, type: 2}
+  maxAmount: 50
+  friction: 10
 --- !u!1 &1274169405
 GameObject:
   m_ObjectHideFlags: 0
@@ -15523,7 +15527,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415292383
 GameObject:
@@ -15814,6 +15818,7 @@ GameObject:
   - component: {fileID: 1726451678}
   - component: {fileID: 1726451677}
   - component: {fileID: 1726451676}
+  - component: {fileID: 1726451679}
   m_Layer: 0
   m_Name: === Managers ===
   m_TagString: Untagged
@@ -15944,6 +15949,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1726451679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726451675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbe3a4bbb8b18246a0e611f609c2838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1843535451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16372,7 +16389,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9116049955275883270, guid: c7812bc54fb11c846b550b1ebfb8e006, type: 3}
       propertyPath: m_FrequencyGain
-      value: 0.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9116049955801881441, guid: c7812bc54fb11c846b550b1ebfb8e006, type: 3}
       propertyPath: m_Name
