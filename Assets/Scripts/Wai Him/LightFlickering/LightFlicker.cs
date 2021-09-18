@@ -8,8 +8,10 @@ public class LightFlicker : MonoBehaviour {
     Light2D fireLight;
     LightFlickerDataSO lightData;
 
+    float timeElapsed;
     float flickerTimer = 0.0f;
-    float lightInt;
+    float targetLightInt;
+    float currLightInt;
 
     [SerializeField] int lightDataID = 0;
 
@@ -31,9 +33,16 @@ public class LightFlicker : MonoBehaviour {
             flickerTimer -= Time.deltaTime;
         }
         if (flickerTimer <= 0.0f) {
-            lightInt = Random.Range(lightData.minInt, lightData.maxInt);
-            fireLight.intensity = lightInt;
+            targetLightInt = Random.Range(lightData.minInt, lightData.maxInt);
             flickerTimer = lightData.flickerTime;
+            timeElapsed = 0;
         }
+
+        if (timeElapsed < lightData.lerpDuration)
+        {
+          currLightInt = Mathf.Lerp(currLightInt, targetLightInt, timeElapsed / lightData.lerpDuration);
+          timeElapsed += Time.deltaTime;
+          fireLight.intensity = currLightInt;
+        }        
     }
 }
