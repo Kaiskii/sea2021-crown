@@ -30,6 +30,8 @@ public class PlayerThrow : MonoBehaviour {
   }
 
   void Update() {
+    if(!ActivePlayerManager.Instance.CanThrowCrown(this.gameObject)) return;
+
     DoMouseButton();
     DoMouseButtonUp();
 
@@ -85,12 +87,13 @@ public class PlayerThrow : MonoBehaviour {
         physicsCrown.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
         this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-        // Setting Properties to become an NPC
-        this.GetComponent<PlayerReceive>().enabled = true;
-        this.GetComponent<CharacterMovement>().enabled = false;
-        this.enabled = false;
-
         physicsCrown.layer = LayerMask.NameToLayer("CrownProjectile");
+
+        // Setting Properties to become an NPC
+        //this.GetComponent<PlayerReceive>().enabled = true;
+        ActivePlayerManager.Instance.CrownThrown();
+        this.GetComponent<CharacterMovement>().enabled = false;
+        //this.enabled = false;
       }
 
       mouseHoldTimer = mouseHoldTime;
