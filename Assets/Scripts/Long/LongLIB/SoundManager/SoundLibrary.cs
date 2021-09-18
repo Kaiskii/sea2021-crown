@@ -5,6 +5,11 @@ using UnityEditor;
 
 public class SoundLibrary : ScriptableObject
 {
+  [Header("Sound Cap")]
+  public float soundCapResetSpeed = 0.55f;
+  public int maxSounds = 3;
+  [Space]
+
 #if UNITY_EDITOR
   [SerializeField]
   List<SoundAsset> effectClips;

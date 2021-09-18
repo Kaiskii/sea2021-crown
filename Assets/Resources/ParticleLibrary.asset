@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles:
   - name: CrownPuff
+    particle: {fileID: 3753012346415140840, guid: e067447436e1f2e479418715afa5a155, type: 3}
+    rotationOffset: 0
+  - name: WalkDust
     particle: {fileID: 1682501626035591704, guid: f7d2e166ec28f9e4c9c214923e592639, type: 3}
     rotationOffset: 0
