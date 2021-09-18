@@ -38,19 +38,26 @@ public class TrajectoryProjection : MonoBehaviour
 
     public void SimulateTrajectory(GameObject crownPrefab, Vector2 pos, Vector2 velocity)
     {
+        
         var ghostObj = Instantiate(crownPrefab, pos, Quaternion.identity);
-        ghostObj.GetComponent<Renderer>().enabled = false;
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            //child.gameObject.SetActive(false);
+        }
+
+        //ghostObj.GetComponent<SpriteRenderer>().enabled = false;
         SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
 
         _line.positionCount = _maxPhysicsFrameIterations;
-
+        Physics2D.simulationMode = SimulationMode2D.Script;
         for(int i = 0; i < _maxPhysicsFrameIterations; i++)
         {
             _physicsScene.Simulate(Time.fixedDeltaTime);
             _line.SetPosition(i, ghostObj.transform.position);
 
         }
-
+        Physics2D.simulationMode = SimulationMode2D.Update;
         Destroy(ghostObj.gameObject);
     }
 }

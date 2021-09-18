@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
 	//[SerializeField]
 	Rigidbody2D characterRb;
 	BoxCollider2D characterCollider;
- 	CharacterStateController characterState;
+	CharacterStateController characterState;
 
 	[SerializeField]
 	public bool active = true;

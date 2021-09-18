@@ -3,101 +3,108 @@ using Cinemachine;
 
 public class PlayerThrow : MonoBehaviour {
 
-  [SerializeField] GameObject crown;
-  [SerializeField] GameObject visualCrown;
+	[SerializeField] GameObject crown;
+	[SerializeField] GameObject visualCrown;
+	[SerializeField] TrajectoryProjection tp;
+	[SerializeField] 
 
-  GameObject physicsCrown;
 
-  [SerializeField] bool isMouseHold = false;
+	GameObject physicsCrown;
 
-  [SerializeField] float torqueStrength = 20.0f;
-  [SerializeField] float mouseStrength = 10.0f;
-  [SerializeField] float mouseHoldTime = 0.2f;
-  [SerializeField] float mouseHoldTimer;
+	[SerializeField] bool isMouseHold = false;
 
-  [SerializeField] Vector2 clampStrength = new Vector2(10.0f, 10.0f);
+	[SerializeField] float torqueStrength = 20.0f;
+	[SerializeField] float mouseStrength = 10.0f;
+	[SerializeField] float mouseHoldTime = 0.2f;
+	float mouseHoldTimer;
 
-  [SerializeField] Vector3 originalTransformPos;
+	[SerializeField] Vector2 clampStrength = new Vector2(10.0f, 10.0f);
 
-  CinemachineVirtualCamera cvc;
+	[SerializeField] Vector3 originalTransformPos;
 
-  Vector3 mouseStartPos;
-  Vector3 worldPosition;
+	CinemachineVirtualCamera cvc;
 
-  void Start() {
-    mouseHoldTimer = mouseHoldTime;
-    cvc = GameObject.FindGameObjectWithTag("CloseCamera").GetComponent<CinemachineVirtualCamera>();
-  }
+	Vector3 mouseStartPos;
+	Vector3 worldPosition;
 
-  void Update() {
-    if(!ActivePlayerManager.Instance.CanThrowCrown(this.gameObject)) return;
+	Vector2 multipliedVector;
 
-    DoMouseButton();
-    DoMouseButtonUp();
+	void Start() {
+		mouseHoldTimer = mouseHoldTime;
+		cvc = GameObject.FindGameObjectWithTag("CloseCamera").GetComponent<CinemachineVirtualCamera>();
+	}
 
-    if (physicsCrown && isMouseHold) {
-      physicsCrown.transform.position = this.transform.position;
-    }
-  }
+	void Update() {
+		if(!ActivePlayerManager.Instance.CanThrowCrown(this.gameObject)) return;
 
-  Vector2 CalculateMousePosition2D() {
-    Vector3 mousePos = Input.mousePosition;
-    mousePos.z = Camera.main.nearClipPlane;
-    return Camera.main.ScreenToWorldPoint(mousePos);
-  }
+		DoMouseButton();
+		DoMouseButtonUp();
 
-  void DoMouseButton() {
-    if (Input.GetMouseButton(0)) {
-      if (!isMouseHold) {
-        if (mouseHoldTimer <= 0.0f) {
-          visualCrown.SetActive(false);
-          isMouseHold = true;
-          mouseStartPos = CalculateMousePosition2D();
-          physicsCrown = Instantiate(crown, this.transform.position, Quaternion.identity);
-          physicsCrown.layer = LayerMask.NameToLayer("VisualCrown");
-          physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-          originalTransformPos = this.transform.position;
-        }
+		if (physicsCrown && isMouseHold) {
+			physicsCrown.transform.position = this.transform.position;
+		}
+	}
 
-        mouseHoldTimer -= Time.deltaTime;
-        return;
-      }
-    }
-  }
+	Vector2 CalculateMousePosition2D() {
+		Vector3 mousePos = Input.mousePosition;
+		mousePos.z = Camera.main.nearClipPlane;
+		return Camera.main.ScreenToWorldPoint(mousePos);
+	}
 
-  void DoMouseButtonUp() {
-    if (Input.GetMouseButtonUp(0)) {
-      if (isMouseHold) {
-        worldPosition = CalculateMousePosition2D();
+	void DoMouseButton() {
+		if (Input.GetMouseButton(0)) {
+			if (!isMouseHold) {
+				if (mouseHoldTimer <= 0.0f) {
+					visualCrown.SetActive(false);
+					isMouseHold = true;
+					mouseStartPos = CalculateMousePosition2D();
+					physicsCrown = Instantiate(crown, this.transform.position, Quaternion.identity);
+					physicsCrown.layer = LayerMask.NameToLayer("VisualCrown");
+					physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+					originalTransformPos = this.transform.position;
 
-        cvc.m_Follow = physicsCrown.transform;
+					tp.SimulateTrajectory(physicsCrown, this.transform.position, multipliedVector);
+				}
 
-        physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+				mouseHoldTimer -= Time.deltaTime;
+				return;
+			}
+		}
+	}
 
-        Vector2 normalizedVector = this.transform.position - originalTransformPos + mouseStartPos - worldPosition;
+	void DoMouseButtonUp() {
+		if (Input.GetMouseButtonUp(0)) {
+			if (isMouseHold) {
+				worldPosition = CalculateMousePosition2D();
 
-        Vector2 clamp = new Vector2(
-          Mathf.Clamp(normalizedVector.x, -clampStrength.x, clampStrength.x),
-          Mathf.Clamp(normalizedVector.y, -clampStrength.y, clampStrength.y)
-        );
+				cvc.m_Follow = physicsCrown.transform;
 
-        Vector2 multipliedVector = clamp * 10.0f * mouseStrength;
+				physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        physicsCrown.GetComponent<Rigidbody2D>().AddTorque(torqueStrength);
-        physicsCrown.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
-        this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+				Vector2 normalizedVector = this.transform.position - originalTransformPos + mouseStartPos - worldPosition;
 
-        physicsCrown.layer = LayerMask.NameToLayer("CrownProjectile");
+				Vector2 clamp = new Vector2(
+					Mathf.Clamp(normalizedVector.x, -clampStrength.x, clampStrength.x),
+					Mathf.Clamp(normalizedVector.y, -clampStrength.y, clampStrength.y)
+				);
 
-        // Setting Properties to become an NPC
-        //this.GetComponent<PlayerReceive>().enabled = true;
-        ActivePlayerManager.Instance.CrownThrown();
-        this.GetComponent<CharacterMovement>().enabled = false;
-        //this.enabled = false;
-      }
+				multipliedVector = clamp * 10.0f * mouseStrength;
 
-      mouseHoldTimer = mouseHoldTime;
-      isMouseHold = false;
-    }
-  }
+				physicsCrown.GetComponent<Rigidbody2D>().AddTorque(torqueStrength);
+				physicsCrown.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
+				this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+				physicsCrown.layer = LayerMask.NameToLayer("CrownProjectile");
+
+				// Setting Properties to become an NPC
+				//this.GetComponent<PlayerReceive>().enabled = true;
+				ActivePlayerManager.Instance.CrownThrown();
+				this.GetComponent<CharacterMovement>().enabled = false;
+				//this.enabled = false;
+			}
+
+			mouseHoldTimer = mouseHoldTime;
+			isMouseHold = false;
+		}
+	}
 }
