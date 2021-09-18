@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endSize: {x: 1.08, y: 0.94, z: 0}
   scaleSpeed: 3
-  waitTime: 0.15
+  waitTime: 0.1
   animCurv:
     serializedVersion: 2
     m_Curve:
