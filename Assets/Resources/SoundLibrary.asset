@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0105d070e444f439d65e63d46eb2c7, type: 3}
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
+  soundCapResetSpeed: 0.55
+  maxSounds: 3
   effectClips:
   - name: CrownLand
     clip: {fileID: 8300000, guid: eaec6a94736cb584d9459b1cc29dc094, type: 3}
@@ -37,10 +39,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1a984a50f760eed4497e82366fe081ad, type: 3}
   musicClips:
   - name: BGM1
-    clip: {fileID: 8300000, guid: 4ce570d6268b8c741afc373c4d8b55ef, type: 3}
+    clip: {fileID: 8300000, guid: 0b436250461089545a2fa43f3e2df1ae, type: 3}
   - name: BGM2
-    clip: {fileID: 8300000, guid: 87a05005f06e8574198770c9d3713ce2, type: 3}
+    clip: {fileID: 8300000, guid: f7c5b26107e375c45b963a547b18c40a, type: 3}
   - name: BGM3
     clip: {fileID: 8300000, guid: 8ef29fbd8c0d9894fb520046f96ac68b, type: 3}
   - name: BGM4
-    clip: {fileID: 8300000, guid: ed8dc138c280cf542b45a389e5c3c139, type: 3}
+    clip: {fileID: 8300000, guid: a602fd74bb082aa43b93b6e2fb0a9649, type: 3}
