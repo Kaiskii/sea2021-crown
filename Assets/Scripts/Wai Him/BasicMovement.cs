@@ -17,6 +17,8 @@ public class BasicMovement : MonoBehaviour
     [SerializeField]
     private float frequency;
 
+    public ParticleSystem dust;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -27,13 +29,20 @@ public class BasicMovement : MonoBehaviour
     {
         body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            createDust();
             body.velocity = new Vector2(body.velocity.x, speed);
+        }
 
         if (Input.GetKeyDown(KeyCode.G)) {
             ScreenShake.Instance.ShakeCamera(amplitude, shakeTimer, frequency);
         }
             
+    }
+
+    void createDust()
+    {
+        dust.Play();
     }
 
 }
