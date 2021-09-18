@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 215740918}
   - component: {fileID: 215740920}
   - component: {fileID: 215740916}
+  - component: {fileID: 215740921}
   - component: {fileID: 215740917}
   m_Layer: 0
   m_Name: Character
@@ -281,7 +282,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215740915}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: d361b0324eaf9e945ad7c65d785f74d1, type: 2}
   m_IsTrigger: 0
@@ -400,8 +401,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   maxMoveSpeed: 10
-  moveAccel: 5000
-  dragStepRate: 2000
   gravityFactor: 2.5
   crushStates: 4
   coyoteTime: 0.3
@@ -411,11 +410,27 @@ MonoBehaviour:
   - 4
   - 8
   - 10
-  crushHeights:
+  colliderHeight:
   - 0.1
   - 0.4
   - 0.7
   - 1
+--- !u!70 &215740921
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215740915}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: d361b0324eaf9e945ad7c65d785f74d1, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.2, y: 1}
+  m_Direction: 0
 --- !u!1 &1601039087
 GameObject:
   m_ObjectHideFlags: 0
