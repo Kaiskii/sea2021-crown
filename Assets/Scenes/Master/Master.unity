@@ -1180,6 +1180,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8280787390595165661, guid: b7c256a9ee9f4574380b4e929846c262, type: 3}
+      propertyPath: m_AmplitudeGain
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8280787390595165661, guid: b7c256a9ee9f4574380b4e929846c262, type: 3}
+      propertyPath: m_FrequencyGain
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8280787390880007280, guid: b7c256a9ee9f4574380b4e929846c262, type: 3}
       propertyPath: m_Follow
       value: 

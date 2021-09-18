@@ -25,6 +25,15 @@ public class SoundManager : Singleton<SoundManager> {
     audioSource.PlayOneShot(clip);
   }
 
+  public void PlayRandomPitch(string effect,float minPitch = 0.8f,float maxPitch = 1.2f) {
+    AudioClip clip = soundLibrary.GetClip(effect);
+    if(!clip) return;
+
+    audioSource.clip = clip;
+    audioSource.pitch = Random.Range(minPitch, maxPitch);
+    audioSource.PlayOneShot(clip);
+  }
+
   // Play a single clip through the music source.
   public void PlayMusic(string bgm) {
     AudioClip clip = soundLibrary.GetClip(bgm);
