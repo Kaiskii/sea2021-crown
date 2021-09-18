@@ -17,6 +17,8 @@ public class PlayerThrow : MonoBehaviour {
 
   [SerializeField] Vector2 clampStrength = new Vector2(10.0f, 10.0f);
 
+  [SerializeField] Vector3 originalTransformPos;
+
   CinemachineVirtualCamera cvc;
 
   Vector3 mouseStartPos;
@@ -51,6 +53,7 @@ public class PlayerThrow : MonoBehaviour {
           mouseStartPos = CalculateMousePosition2D();
           physicsCrown = Instantiate(crown, this.transform.position, Quaternion.identity);
           physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+          originalTransformPos = this.transform.position;
         }
 
         mouseHoldTimer -= Time.deltaTime;
@@ -68,7 +71,7 @@ public class PlayerThrow : MonoBehaviour {
 
         physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        Vector2 normalizedVector = mouseStartPos - worldPosition;
+        Vector2 normalizedVector = this.transform.position - originalTransformPos + mouseStartPos - worldPosition;
 
         Vector2 clamp = new Vector2(
           Mathf.Clamp(normalizedVector.x, -clampStrength.x, clampStrength.x),

@@ -6,12 +6,7 @@ public class CrownLeavesPlayer : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D other) {
     if (other.CompareTag("CrownPhysics") && ActivePlayerManager.Instance.ActivePlayer == this.gameObject) {
-      foreach (Transform tr in this.transform.parent) {
-        tr.gameObject.layer = LayerMask.NameToLayer("OtherNPC");
-      }
-
       ActivePlayerManager.Instance.ActivePlayer = null;
-      
     }
   }
 }
