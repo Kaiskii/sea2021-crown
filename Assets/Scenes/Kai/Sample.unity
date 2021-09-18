@@ -282,7 +282,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -999
   m_Sprite: {fileID: 21300000, guid: 210a1cf91a5748046a6351495a944c71, type: 3}
   m_Color: {r: 0.52916473, g: 1, b: 0.5235849, a: 1}
   m_FlipX: 0
@@ -415,7 +415,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -9999
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.5931827, g: 0.8113208, b: 0.6619964, a: 1}
   m_FlipX: 0
@@ -752,7 +752,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1142,7 +1142,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -999
   m_Sprite: {fileID: 21300000, guid: 210a1cf91a5748046a6351495a944c71, type: 3}
   m_Color: {r: 0.52916473, g: 1, b: 0.5235849, a: 1}
   m_FlipX: 0
@@ -1390,3 +1390,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc4cbafe76540e64dae41cfd44f92030, type: 3}
+--- !u!1 &8734243205333654260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8734243204015474061, guid: bc4cbafe76540e64dae41cfd44f92030, type: 3}
+  m_PrefabInstance: {fileID: 8734243205333654259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8734243205333654261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8734243205333654260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2056f8827cf72e4ba9bba11ef3d5b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crown: {fileID: 2549543299951269862, guid: ef478a2f378406542afdc2b76165251a, type: 3}
+  isMouseHold: 0
+  mouseStrength: 10
+  mouseHoldTime: 0.1
+  mouseHoldTimer: 0
+  clampStrength: {x: 5, y: 5}
