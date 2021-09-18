@@ -187,7 +187,7 @@ public class CharacterMovement : MonoBehaviour
 			curCrushState -= 1;
 		}
 		characterCollider.size = new Vector2 (characterCollider.size.x, colliderHeight[curCrushState]);
-		
+		characterCollider.offset = new Vector2 (characterCollider.offset.x, colliderHeight[curCrushState]/2);
 	}
 }
 
