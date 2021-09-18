@@ -18,6 +18,7 @@ public class BasicMovement : MonoBehaviour
     private float frequency;
 
     public ParticleSystem dust;
+    public ParticleSystem explode;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class BasicMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             createDust();
+            createExplode();
             body.velocity = new Vector2(body.velocity.x, speed);
         }
 
@@ -44,5 +46,11 @@ public class BasicMovement : MonoBehaviour
     {
         dust.Play();
     }
+
+    void createExplode()
+    {
+        explode.Play();
+    }
+
 
 }
