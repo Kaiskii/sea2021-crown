@@ -52,6 +52,7 @@ public class PlayerThrow : MonoBehaviour {
           isMouseHold = true;
           mouseStartPos = CalculateMousePosition2D();
           physicsCrown = Instantiate(crown, this.transform.position, Quaternion.identity);
+          physicsCrown.layer = LayerMask.NameToLayer("VisualCrown");
           physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
           originalTransformPos = this.transform.position;
         }
@@ -88,6 +89,8 @@ public class PlayerThrow : MonoBehaviour {
         this.GetComponent<PlayerReceive>().enabled = true;
         this.GetComponent<CharacterMovement>().enabled = false;
         this.enabled = false;
+
+        physicsCrown.layer = LayerMask.NameToLayer("CrownProjectile");
       }
 
       mouseHoldTimer = mouseHoldTime;
