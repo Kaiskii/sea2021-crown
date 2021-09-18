@@ -41,11 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3812884705831030393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48b5382d45a4270449e9f47a5a70b453, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e3bdeb727c9ffd489b3b26090972e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transition: {fileID: 3812884706349204446}
   transitionTime: 1
+  Scene: 
 --- !u!1 &3812884706181726296
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +246,7 @@ Animator:
   m_GameObject: {fileID: 3812884706349204444}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c92becafa26ecab41aadb9cec0f3c577, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4589b34847c5aa34bb86f2f132aac6df, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
