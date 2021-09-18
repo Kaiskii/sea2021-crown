@@ -4,6 +4,8 @@ using UnityEngine;
 using Cinemachine;
 
 public class PlayerReceive : MonoBehaviour {
+  [SerializeField] GameObject visualCrown;
+
   CinemachineVirtualCamera cvc;
 
   void Start() {
@@ -16,13 +18,9 @@ public class PlayerReceive : MonoBehaviour {
 
       cvc.m_Follow = this.transform;
 
-      // Setting Properties to become Player
-      foreach (Transform tr in this.transform.parent) {
-        tr.gameObject.layer = LayerMask.NameToLayer("Player");
-      }
-
       this.GetComponent<CharacterMovement>().enabled = true;
       this.GetComponent<PlayerThrow>().enabled = true;
+      visualCrown.SetActive(true);
 
       ActivePlayerManager.Instance.ActivePlayer = this.gameObject;
 
