@@ -76,6 +76,7 @@ public class CharacterMovement : MonoBehaviour
 		characterState = GetComponent<CharacterStateController>();
 	}
 
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -230,12 +231,15 @@ public class CharacterMovement : MonoBehaviour
 		if(curCrushState > 0 ){
 			curCrushState -= 1;
 		}
+
+    if(!characterCollider) characterCollider = GetComponent<BoxCollider2D>();
 		characterCollider.size = new Vector2 (characterCollider.size.x, colliderHeight[curCrushState]);
 		characterCollider.offset = new Vector2 (characterCollider.offset.x, colliderHeight[curCrushState]/2);
 
     SoundManager.Instance?.Play(crushSoundName);
     SoundManager.Instance?.Play(crushSoundName2);
 
+    if(!characterState) characterState = GetComponent<CharacterStateController>();
     characterState.IncrementCrushState();
     ParticleManager.Instance.CreateParticle(crushParticleName,transform.position);
 	}
