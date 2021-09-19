@@ -96,6 +96,7 @@ public class PlayerThrow : MonoBehaviour {
         //this.GetComponent<PlayerReceive>().enabled = true;
         ActivePlayerManager.Instance.CrownThrown();
         this.GetComponent<CharacterMovement>().enabled = false;
+        TrajectoryProjection.Instance.ClearLineRenderer();
         //this.enabled = false;
       }
 

@@ -71,4 +71,8 @@ public class TrajectoryProjection : MonoBehaviour {
       Destroy(dummy);
     }
   }
+
+  public void ClearLineRenderer() {
+    lineRenderer.positionCount = 0;
+  }
 }
