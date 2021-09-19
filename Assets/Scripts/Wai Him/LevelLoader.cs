@@ -27,20 +27,24 @@ public class LevelLoader : MonoBehaviour {
           }
       }
 
-      StartCoroutine(LoadLevel(menu.levelName[count]));
+      StartCoroutine(LoadLevelRoutine(menu.levelName[count]));
     }
 
     public void ReloadLevel()
     {
-      StartCoroutine(LoadLevel(SceneManager.GetActiveScene().name));
+      StartCoroutine(LoadLevelRoutine(SceneManager.GetActiveScene().name));
+    }
+
+    public void LoadLevel(string name){
+      StartCoroutine(LoadLevelRoutine(name));
     }
 
     public void ReturnToMenu()
     {
-      StartCoroutine(LoadLevel("TitleScreen"));
+      StartCoroutine(LoadLevelRoutine("TitleScreen"));
     }
 
-    public IEnumerator LoadLevel(string levelIndex) {
+    public IEnumerator LoadLevelRoutine(string levelIndex) {
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
