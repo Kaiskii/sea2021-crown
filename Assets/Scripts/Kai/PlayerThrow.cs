@@ -5,8 +5,8 @@ public class PlayerThrow : MonoBehaviour {
 
 	[SerializeField] GameObject crown;
 	[SerializeField] GameObject visualCrown;
+	[SerializeField] CrownPhysics crownPhysics;
 	[SerializeField] TrajectoryProjection tp;
-	[SerializeField] 
 
 
 	GameObject physicsCrown;
@@ -32,6 +32,8 @@ public class PlayerThrow : MonoBehaviour {
 	void Start() {
 		mouseHoldTimer = mouseHoldTime;
 		cvc = GameObject.FindGameObjectWithTag("CloseCamera").GetComponent<CinemachineVirtualCamera>();
+
+
 	}
 
 	void Update() {
@@ -53,6 +55,7 @@ public class PlayerThrow : MonoBehaviour {
 
 	void DoMouseButton() {
 		if (Input.GetMouseButton(0)) {
+			tp.SimulateTrajectory(crownPhysics, this.transform.position, multipliedVector, torqueStrength);
 			if (!isMouseHold) {
 				if (mouseHoldTimer <= 0.0f) {
 					visualCrown.SetActive(false);
@@ -63,7 +66,7 @@ public class PlayerThrow : MonoBehaviour {
 					physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 					originalTransformPos = this.transform.position;
 
-					tp.SimulateTrajectory(physicsCrown, this.transform.position, multipliedVector);
+					
 				}
 
 				mouseHoldTimer -= Time.deltaTime;

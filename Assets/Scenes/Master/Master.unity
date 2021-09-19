@@ -929,8 +929,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crown: {fileID: 2549543299951269862, guid: ef478a2f378406542afdc2b76165251a, type: 3}
   visualCrown: {fileID: 453353886}
+  crownPhysics: {fileID: 0}
   tp: {fileID: 0}
-  physicsCrown: {fileID: 0}
   isMouseHold: 0
   torqueStrength: 10
   mouseStrength: 10
@@ -1168,8 +1168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crown: {fileID: 2549543299951269862, guid: ef478a2f378406542afdc2b76165251a, type: 3}
   visualCrown: {fileID: 1896487184}
+  crownPhysics: {fileID: 6173507549627442849, guid: ef478a2f378406542afdc2b76165251a, type: 3}
   tp: {fileID: 1264566025}
-  physicsCrown: {fileID: 0}
   isMouseHold: 0
   torqueStrength: 10
   mouseStrength: 10
@@ -5168,7 +5168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264566022}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.925776, y: 7.052661, z: -4.9281983}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1325542118}
@@ -5216,7 +5216,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 10, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -5225,7 +5225,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -5287,7 +5287,7 @@ MonoBehaviour:
   _obstacleParent: {fileID: 1773791569}
   _tilemap: {fileID: 1004079972}
   _line: {fileID: 1264566024}
-  _maxPhysicsFrameIterations: 100
+  _maxPhysicsFrameIterations: 50
 --- !u!1 &1274169405
 GameObject:
   m_ObjectHideFlags: 0
@@ -16230,8 +16230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crown: {fileID: 2549543299951269862, guid: ef478a2f378406542afdc2b76165251a, type: 3}
   visualCrown: {fileID: 1725625092}
+  crownPhysics: {fileID: 0}
   tp: {fileID: 0}
-  physicsCrown: {fileID: 0}
   isMouseHold: 0
   torqueStrength: 10
   mouseStrength: 10
