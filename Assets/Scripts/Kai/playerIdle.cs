@@ -12,7 +12,6 @@ public class playerIdle : MonoBehaviour {
   [SerializeField] Vector3 originalTransformScale;
 
   void Start() {
-    originalTransformScale = this.transform.localScale;
     fx = new EffectBuilder(this);
     SetTweenID(tweenID);
   }
@@ -23,6 +22,12 @@ public class playerIdle : MonoBehaviour {
 
     if(!tweenData || fx == null){
       return;
+    }
+
+    if(tweenData.overrideDefault){
+      originalTransformScale = this.transform.localScale;
+    } else {
+      originalTransformScale = tweenData.startSize;
     }
 
     _wait = new WaitForSeconds(tweenData.waitTime);

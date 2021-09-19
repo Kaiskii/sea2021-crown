@@ -21,7 +21,8 @@ public class ResourceIndex : ScriptableObject
         etc... any types you want to index
         */
         {"Lights",typeof(LightFlickerDataSO)},
-        {"IdleTweens",typeof(PlayerTweenSO)},
+        {"Tweens",typeof(PlayerTweenSO)},
+        {"TweenStates",typeof(CharacterTweenStatesSO)},
         //{"Projectiles",typeof(ProjectileDataSO)}
     };
 

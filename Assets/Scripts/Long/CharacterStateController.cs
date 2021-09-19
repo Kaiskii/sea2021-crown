@@ -4,35 +4,47 @@ using UnityEngine;
 
 public class CharacterStateController : MonoBehaviour
 {
-  //[SerializeField] bool isPanicking = false;
-  //[SerializeField] int movementDirection = 0;
-  //[Space]
-  [SerializeField] int panicTweenID = 1;
-  [SerializeField] int normalTweenID = 0;
+  [SerializeField] int TweenStateID;
+  CharacterTweenStatesSO data;
+
+  int currentState = 0;
 
   playerIdle idle;
   Animator animator;
   SpriteRenderer rend;
+  [SerializeField] CrownBob bob;
 
-  bool state = false;
+  bool canSquish = true;
+
 
   void Start()
   {
+    data = ResourceIndex.GetAsset<CharacterTweenStatesSO>(TweenStateID);
+
     idle = GetComponent<playerIdle>();
     animator = GetComponent<Animator>();
     rend = GetComponent<SpriteRenderer>();
 
-    idle.SetTweenID(normalTweenID);
+    idle.SetTweenID(data.stateTweenIDs[0]);
   }
 
-  public void SetPanicking(bool state)
+  public void IncrementCrushState()
   {
-    animator.SetBool("IsPanicking",state);
+    if (!canSquish) return;
 
-    if(state)
-      idle.SetTweenID(panicTweenID);
-    else
-      idle.SetTweenID(normalTweenID);
+    animator.SetBool("IsPanicking",true);
+    currentState++;
+
+    if(currentState < data.stateTweenIDs.Count){
+      idle.SetTweenID(data.stateTweenIDs[currentState]);
+      if(bob) bob.SetOffset(data.crownOffsets[currentState]);
+    } else {
+      canSquish = false;
+      animator.runtimeAnimatorController = data.gooController;
+      idle.SetTweenID(data.gooTweenID);
+      if(bob) bob.SetOffset(-1.4f);
+    }
+
   }
 
   public void SetMovementDirection(float dir)

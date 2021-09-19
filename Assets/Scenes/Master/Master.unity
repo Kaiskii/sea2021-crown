@@ -915,6 +915,7 @@ MonoBehaviour:
   visualCrown: {fileID: 453353886}
   nearbyPawns: []
   nearestPawn: {fileID: 0}
+  havePassed: 0
 --- !u!114 &857170301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +953,8 @@ MonoBehaviour:
   active: 1
   maxMoveSpeed: 10
   gravityFactor: 2.5
+  curCrushState: 3
+  ignoreFirstDrop: 0
   coyoteTime: 0.3
   jumpBufferTime: 0.1
   jumpPower:
@@ -1191,6 +1194,8 @@ MonoBehaviour:
   active: 1
   maxMoveSpeed: 10
   gravityFactor: 2.5
+  curCrushState: 3
+  ignoreFirstDrop: 1
   coyoteTime: 0.3
   jumpBufferTime: 0.1
   jumpPower:
@@ -1368,6 +1373,7 @@ MonoBehaviour:
   visualCrown: {fileID: 1896487184}
   nearbyPawns: []
   nearestPawn: {fileID: 0}
+  havePassed: 0
 --- !u!1 &926513922
 GameObject:
   m_ObjectHideFlags: 0
@@ -16216,6 +16222,7 @@ MonoBehaviour:
   visualCrown: {fileID: 1725625092}
   nearbyPawns: []
   nearestPawn: {fileID: 0}
+  havePassed: 0
 --- !u!114 &1318600328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16253,6 +16260,8 @@ MonoBehaviour:
   active: 1
   maxMoveSpeed: 10
   gravityFactor: 2.5
+  curCrushState: 3
+  ignoreFirstDrop: 0
   coyoteTime: 0.3
   jumpBufferTime: 0.1
   jumpPower:

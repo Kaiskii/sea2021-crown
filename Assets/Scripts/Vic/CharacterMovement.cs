@@ -26,7 +26,9 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	float gravityFactor = 2.5f;
 
-	int curCrushState = 3;
+  [SerializeField]
+	public int curCrushState = 3;
+  [SerializeField] bool ignoreFirstDrop = true;
 
 	[SerializeField]
 	float coyoteTime = 0.3f;
@@ -53,6 +55,12 @@ public class CharacterMovement : MonoBehaviour
   	string jumpParticleName = "CrownPuff";
   	[SerializeField]
   	string jumpSoundName = "JumpPeasant";
+    [SerializeField]
+  	string crushParticleName = "Squish";
+  	[SerializeField]
+  	string crushSoundName = "CrownCrunch";
+  	[SerializeField]
+  	string crushSoundName2 = "CrownSquash1";
 
   	float elapsedTime = 0;
 
@@ -130,7 +138,7 @@ public class CharacterMovement : MonoBehaviour
 				coyoteTimer -= Time.deltaTime;
 			}
 
-			if(Input.GetButtonDown("Jump"))
+			if(Input.GetButtonDown("Jump") && curCrushState > 0)
 			{
 				jumpBufferTimer = jumpBufferTime;
 			}
@@ -142,9 +150,10 @@ public class CharacterMovement : MonoBehaviour
 			if(jumpBufferTimer >= 0f && coyoteTimer > 0f && grounded)
 			{
 				characterRb.velocity += new Vector2(0f, jumpPower[curCrushState]);
-				jumpBufferTimer = 0f;
-				willBeCrushed = true;
 
+				jumpBufferTimer = 0f;
+
+        willBeCrushed = true;
 				SoundManager.Instance?.Play(jumpSoundName);
 				ParticleManager.Instance.CreateParticle(jumpParticleName,transform.position);
 			}
@@ -213,12 +222,22 @@ public class CharacterMovement : MonoBehaviour
 
 	public void crushCharacter()
 	{
-		if(curCrushState > 0)
-		{
+    if(ignoreFirstDrop){
+      ignoreFirstDrop = false;
+      return;
+    }
+
+		if(curCrushState > 0 ){
 			curCrushState -= 1;
 		}
 		characterCollider.size = new Vector2 (characterCollider.size.x, colliderHeight[curCrushState]);
 		characterCollider.offset = new Vector2 (characterCollider.offset.x, colliderHeight[curCrushState]/2);
+
+    SoundManager.Instance?.Play(crushSoundName);
+    SoundManager.Instance?.Play(crushSoundName2);
+
+    characterState.IncrementCrushState();
+    ParticleManager.Instance.CreateParticle(crushParticleName,transform.position);
 	}
 }
 
