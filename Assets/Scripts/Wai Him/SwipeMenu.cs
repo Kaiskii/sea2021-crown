@@ -72,7 +72,7 @@ public class SwipeMenu : MonoBehaviour
         {
             buttonName = buttons[i].GetComponentInChildren<Text>();
             buttons[i].gameObject.SetActive(true);
-            buttonName.text = levelName[i];
+            //buttonName.text = levelName[i];
             
 
         }
