@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class LevelLoader : MonoBehaviour {
+
+
     public Animator transition;
 
     public float transitionTime = 2f;
@@ -34,6 +36,14 @@ public class LevelLoader : MonoBehaviour {
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(levelIndex);
+    }
+
+    public void OnTriggerEnter2D(Collider2D other) 
+    {
+        if (other.CompareTag("Player") && !other.isTrigger) 
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
 }
