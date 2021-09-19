@@ -382,10 +382,10 @@ MonoBehaviour:
   jumpBufferTime: 0.1
   jumpPower:
   - 0
-  - 5
+  - 8
   - 10
-  - 15
-  - 15
+  - 10
+  - 13
   colliderHeight:
   - 0.2
   - 0.8
