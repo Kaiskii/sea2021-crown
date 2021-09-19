@@ -20,8 +20,11 @@ public class ResourceIndex : ScriptableObject
 
         etc... any types you want to index
         */
+        {"Tweens",typeof(PlayerTweenSO)},
+        {"TweenStates",typeof(CharacterTweenStatesSO)},
+        {"Lights",typeof(LightFlickerDataSO)}
 
-        {"Projectiles",typeof(ProjectileDataSO)}
+        //{"Projectiles",typeof(ProjectileDataSO)}
     };
 
     [MenuItem("LongLib/Create Resource Index")]
@@ -59,6 +62,7 @@ public class ResourceIndex : ScriptableObject
             ResourceType newResourceType;
             newResourceType.name = currentType.Key;
             newResourceType.type = currentType.Value;
+            newResourceType.typeAsString = currentType.Value.FullName;
             newResourceType.assets = new List<ResourceAsset>();
 
 
@@ -110,33 +114,70 @@ public class ResourceIndex : ScriptableObject
         //if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode == false)
         UpdateIndex();
     }
-
 #endif
+
     private static Dictionary<string, ResourceAsset> assetTypeDictionary;
+    public List<ResourceType> resources = new List<ResourceType>();
 
-    [RuntimeInitializeOnLoadMethod]
-    private static void Init()
-    {
-        var index = Resources.Load<ResourceIndex>("ResourceIndex");
-        assetTypeDictionary = new Dictionary<string, ResourceAsset>();
+  [RuntimeInitializeOnLoadMethod]
+  private static void OnInit()
+  {
+      ResourceIndex index = Resources.Load<ResourceIndex>("ResourceIndex");
 
-        string assetID = "";
-        foreach(ResourceType resource in index.resources)
-        {
-            foreach(ResourceAsset asset in resource.assets)
+      if(!index){
+        Debug.LogWarning("Failed to load Resource Index! Is it created?");
+        return;
+      }
+
+      string assetID = "";
+
+      assetTypeDictionary = new Dictionary<string, ResourceAsset>();
+
+      for(int i = 0;i < index.resources.Count;++i){
+        Debug.Log("RESOURCE:" + index.resources[i].name);
+        Debug.Log("RESOURCE:" + index.resources[i].typeAsString);
+        for (int j = 0;j < index.resources[i].assets.Count;++j){
+
+            Debug.Log("ID");
+            Debug.Log(index.resources[i].assets[j].id);
+
+            Debug.Log("full name");
+            Debug.Log(index.resources[i].typeAsString); 
+
+            assetID = index.resources[i].typeAsString+"_"+index.resources[i].assets[j].id;
+            Debug.Log("ASSET: " + assetID);
+
+            //Check for duplicates
+            /*
+            if (assetTypeDictionary.ContainsKey(assetID))
             {
-                assetID = resource.type.ToString()+"_"+asset.id;
-
-                //Check for duplicates
-                if (assetTypeDictionary.ContainsKey(assetID))
-                {
-                    Debug.LogErrorFormat("Duplicate asset id: " + asset.id + " of type " + resource.type.ToString());
-                    continue;
-                }
-                assetTypeDictionary.Add(assetID, asset);
+                //Debug.LogErrorFormat("Duplicate asset id: " + asset.id + " of type " + resource.type.ToString());
+                continue;
             }
+            */
+            assetTypeDictionary.Add(assetID, index.resources[i].assets[j]);
         }
-    }
+      }
+      /*
+      foreach(ResourceType resource in index.resources)
+      {
+          Debug.Log("RESOURCE:" + resource.name);
+          foreach(ResourceAsset asset in resource.assets)
+          {
+              assetID = resource.type.ToString()+"_"+asset.id;
+              Debug.Log("ASSET: " + assetID);
+
+              //Check for duplicates
+              if (assetTypeDictionary.ContainsKey(assetID))
+              {
+                  Debug.LogErrorFormat("Duplicate asset id: " + asset.id + " of type " + resource.type.ToString());
+                  continue;
+              }
+              assetTypeDictionary.Add(assetID, asset);
+          }
+      }
+      */
+  }
 
 
     /// <summary>
@@ -145,10 +186,11 @@ public class ResourceIndex : ScriptableObject
     /// <typeparam name="T"></typeparam>
     /// <param name="id"></param>
     /// <returns></returns>
-    public static T GetAsset<T>(int id) where T : Object
+    public static T GetAsset<T>(int id,string type) where T : UnityEngine.Object
     {
         ResourceAsset asset;
-        if (assetTypeDictionary.TryGetValue(typeof(T).FullName+"_"+id, out asset))
+
+        if (assetTypeDictionary.TryGetValue(type+"_"+id, out asset))
             return Resources.Load<T>(asset.assetPath);
         return null;
     }
@@ -194,7 +236,7 @@ public class ResourceIndex : ScriptableObject
         [HideInInspector]
         public string name;
         public System.Type type;
+        public string typeAsString;
         public List<ResourceAsset> assets;
     }
-    public List<ResourceType> resources;
 }

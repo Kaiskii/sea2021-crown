@@ -3,17 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CloseCamera
+  - FarCamera
+  - CrownPhysics
+  - Pawn
+  - Grid
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Decoration
   - Water
   - UI
-  - 
-  - 
-  - 
+  - CrownProjectile
+  - Player
+  - VisualCrown
   - 
   - 
   - 
@@ -38,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackgroundUnlit
+    uniqueID: 3211283643
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
