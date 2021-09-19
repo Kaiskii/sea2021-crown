@@ -8,6 +8,7 @@ TagManager:
   - FarCamera
   - CrownPhysics
   - Pawn
+  - Grid
   layers:
   - Default
   - TransparentFX

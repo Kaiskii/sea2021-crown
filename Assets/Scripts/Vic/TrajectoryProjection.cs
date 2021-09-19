@@ -5,66 +5,66 @@ using UnityEngine.SceneManagement;
 
 public class TrajectoryProjection : MonoBehaviour
 {
-    private Scene _simulationScene;
-    private PhysicsScene _physicsScene; 
-
-    [SerializeField] private Transform _obstacleParent;
+    public GameObject obstacles;
+    public int maxIterations;
     [SerializeField] private Transform _tilemap;
+    Scene currentScene;
+    Scene predictionScene;
 
-    [SerializeField] private LineRenderer _line;
-    [SerializeField] private int _maxPhysicsFrameIterations;
+    PhysicsScene2D currentPhysicsScene;
+    PhysicsScene2D predictionPhysicsScene;
 
+    List<GameObject> dummyObstacles = new List<GameObject>();
 
-    void Start()
-    {
-        CreatePhysicsScene();
-        Physics.autoSimulation = false;
+    LineRenderer lineRenderer;
+    GameObject dummy;
+
+    void Start(){
+      Physics.autoSimulation = false;
+
+      currentScene = SceneManager.GetActiveScene();
+      currentPhysicsScene = currentScene.GetPhysicsScene2D();
+
+      CreateSceneParameters parameters = new CreateSceneParameters(LocalPhysicsMode.Physics2D);
+      predictionScene = SceneManager.CreateScene("Prediction", parameters);
+      predictionPhysicsScene = predictionScene.GetPhysicsScene2D();
+
+      if (_tilemap == null) {
+        _tilemap = GameObject.FindGameObjectWithTag("Grid").transform;
+      }
+
+      GameObject ghostTilemap = Instantiate(_tilemap.gameObject, _tilemap.transform.position, Quaternion.identity);
+
+      foreach (Transform obj in ghostTilemap.transform) {
+        transform.GetComponent<Renderer>().enabled = false;
+      }
+
+      SceneManager.MoveGameObjectToScene(ghostTilemap, predictionScene);
+
+      lineRenderer = GetComponent<LineRenderer>();
+      lineRenderer.enabled = true;
     }
 
-    void CreatePhysicsScene()
-    {
-        _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics2D));
-        _physicsScene = _simulationScene.GetPhysicsScene();
-
-        var ghostTilemap = Instantiate(_tilemap, _tilemap.transform);
-        ghostTilemap.GetComponent<Renderer>().enabled = false;
-        
-        
-        foreach (Transform obj in _obstacleParent)
-        {
-            var ghostObj = Instantiate(obj.gameObject, obj.transform);
-            ghostObj.GetComponent<Renderer>().enabled = false;
-            SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
-        }
-    }
-
-    public void SimulateTrajectory(CrownPhysics crownPrefab, Vector2 pos, Vector2 velocity, float torque)
-    {
-        
-        var ghostObj = Instantiate(crownPrefab, pos, Quaternion.identity);
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
-        foreach (Transform child in allChildren)
-        {
-            child.gameObject.SetActive(false);
+    public void predict(GameObject subject, Vector3 currentPosition, Vector3 force, float torque){
+      if (currentPhysicsScene.IsValid() && predictionPhysicsScene.IsValid()){
+        if(dummy == null){
+          dummy = Instantiate(subject);
+          SceneManager.MoveGameObjectToScene(dummy, predictionScene);
         }
 
-        //ghostObj.GetComponent<SpriteRenderer>().enabled = false;
-        
-        SceneManager.MoveGameObjectToScene(ghostObj.gameObject, _simulationScene);
-        ghostObj.Init(new Vector2 (2.0f, 2.0f), torque);
-        Debug.DrawLine(new Vector2(0,0),ghostObj.transform.position);
+        dummy.transform.position = currentPosition;
+        dummy.GetComponent<Rigidbody2D>().AddForce(force);
+        dummy.GetComponent<Rigidbody2D>().AddTorque(torque);
+        lineRenderer.positionCount = 0;
+        lineRenderer.positionCount = maxIterations;
 
-        _line.positionCount = _maxPhysicsFrameIterations;
-        //Physics2D.simulationMode = SimulationMode2D.Script;
-        
-  
-        for(int i = 0; i < _maxPhysicsFrameIterations; i++)
-        {
-            _physicsScene.Simulate(Time.fixedDeltaTime);
-            _line.SetPosition(i, ghostObj.transform.position);
 
+        for (int i = 0; i < maxIterations; i++){
+          predictionPhysicsScene.Simulate(Time.fixedDeltaTime);
+          lineRenderer.SetPosition(i, dummy.transform.position);
         }
-        
-        Destroy(ghostObj.gameObject);
+
+        Destroy(dummy);
+      }
     }
 }

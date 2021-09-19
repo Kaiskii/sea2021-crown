@@ -5,7 +5,7 @@ public class PlayerThrow : MonoBehaviour {
 
 	[SerializeField] GameObject crown;
 	[SerializeField] GameObject visualCrown;
-	[SerializeField] CrownPhysics crownPhysics;
+	[SerializeField] GameObject fakeSimCrown;
 	[SerializeField] TrajectoryProjection tp;
 
 
@@ -32,8 +32,6 @@ public class PlayerThrow : MonoBehaviour {
 	void Start() {
 		mouseHoldTimer = mouseHoldTime;
 		cvc = GameObject.FindGameObjectWithTag("CloseCamera").GetComponent<CinemachineVirtualCamera>();
-
-
 	}
 
 	void Update() {
@@ -68,20 +66,10 @@ public class PlayerThrow : MonoBehaviour {
 
 				mouseHoldTimer -= Time.deltaTime;
 				return;
-			}
-		}
-	}
-
-	void DoMouseButtonUp() {
-		if (Input.GetMouseButtonUp(0)) {
-			if (isMouseHold) {
+			} else {
 				worldPosition = CalculateMousePosition2D();
 
-				cvc.m_Follow = physicsCrown.transform;
-
-				physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-				Vector2 normalizedVector = this.transform.position - originalTransformPos + mouseStartPos - worldPosition;
+        Vector2 normalizedVector = this.transform.position - originalTransformPos + mouseStartPos - worldPosition;
 
 				Vector2 clamp = new Vector2(
 					Mathf.Clamp(normalizedVector.x, -clampStrength.x, clampStrength.x),
@@ -89,6 +77,17 @@ public class PlayerThrow : MonoBehaviour {
 				);
 
 				multipliedVector = clamp * 10.0f * mouseStrength;
+        tp.predict(fakeSimCrown, this.transform.position, multipliedVector, torqueStrength);
+      }
+		}
+	}
+
+	void DoMouseButtonUp() {
+		if (Input.GetMouseButtonUp(0)) {
+			if (isMouseHold) {
+				cvc.m_Follow = physicsCrown.transform;
+
+				physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
 				physicsCrown.GetComponent<Rigidbody2D>().AddTorque(torqueStrength);
 				physicsCrown.GetComponent<Rigidbody2D>().AddForce(multipliedVector);
