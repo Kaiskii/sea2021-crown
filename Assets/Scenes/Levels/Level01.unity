@@ -1145,7 +1145,7 @@ PrefabInstance:
       objectReference: {fileID: 881191265}
     - target: {fileID: 8280787390880007280, guid: b7c256a9ee9f4574380b4e929846c262, type: 3}
       propertyPath: m_Priority
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8280787390880007280, guid: b7c256a9ee9f4574380b4e929846c262, type: 3}
       propertyPath: m_Lens.OrthographicSize
@@ -5121,7 +5121,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 30
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5145,7 +5145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211955365}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.56, y: -13.51, z: -10}
+  m_LocalPosition: {x: -6.56, y: -12.51, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -17199,7 +17199,7 @@ PrefabInstance:
       objectReference: {fileID: 881191265}
     - target: {fileID: 9116049955801881442, guid: c7812bc54fb11c846b550b1ebfb8e006, type: 3}
       propertyPath: m_Priority
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116049955801881443, guid: c7812bc54fb11c846b550b1ebfb8e006, type: 3}
       propertyPath: m_RootOrder
