@@ -47,6 +47,7 @@ public class PlayerReceive : MonoBehaviour {
       cvc.m_Follow = this.transform;
 
       this.GetComponent<CharacterMovement>().enabled = true;
+      this.GetComponent<CharacterMovement>().crushCharacter();
       visualCrown.SetActive(true);
       CheckForNearestPawn();
     }

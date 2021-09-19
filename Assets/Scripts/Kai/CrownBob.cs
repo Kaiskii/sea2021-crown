@@ -14,4 +14,9 @@ public class CrownBob : MonoBehaviour {
   public void SetOffset(float offset){
     baseOffset = offset;
   }
+
+  public void SetYOffset(float offset){
+    yOffset = offset;
+    baseOffset = 0;
+  }
 }
