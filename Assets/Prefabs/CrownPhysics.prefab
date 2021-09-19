@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7795671323282611007}
   - component: {fileID: 5482375959414262678}
   - component: {fileID: 4487809545382165113}
+  - component: {fileID: 6173507549627442849}
   m_Layer: 6
   m_Name: CrownPhysics
   m_TagString: CrownPhysics
@@ -88,6 +89,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitSFX: CrownLand
   hitParticle: CrownPuff
+  cameraShakeParams: {x: 5, y: 0.2, z: 3}
+--- !u!114 &6173507549627442849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549543299951269862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93ecb67beb3387941add3bde6cef31a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3271233151234174883
 GameObject:
   m_ObjectHideFlags: 0
