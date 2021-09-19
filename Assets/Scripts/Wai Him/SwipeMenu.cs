@@ -15,7 +15,7 @@ public class SwipeMenu : MonoBehaviour
     public List<string> levelName = new List<string>();
 
     [SerializeField]
-    private Button[] buttons;
+    public Button[] buttons;
 
     public GameObject buttonPrefab;
     
@@ -47,7 +47,6 @@ public class SwipeMenu : MonoBehaviour
                 if (scroll_pos < pos [i] + (distance / 2) && scroll_pos > pos [i] - (distance / 2)) 
                 {
                     sceneName = levelName[i];
-                    Debug.Log(sceneName);
                     scrollbar.GetComponent<Scrollbar>().value = Mathf.Lerp(scrollbar.GetComponent<Scrollbar>().value, pos[i], 0.1f);
                 }
             }
@@ -75,6 +74,7 @@ public class SwipeMenu : MonoBehaviour
             buttons[i].gameObject.SetActive(true);
             buttonName.text = levelName[i];
             
+
         }
     }
 
