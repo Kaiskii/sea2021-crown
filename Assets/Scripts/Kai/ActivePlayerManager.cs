@@ -32,7 +32,7 @@ public class ActivePlayerManager : MonoBehaviour {
       }
     }
 
-    if(activePlayer = null){
+    if(activePlayer == null){
       resetTime += Time.deltaTime;
       if(resetTime >= resetPromptDuration){
         shouldReset = true;
