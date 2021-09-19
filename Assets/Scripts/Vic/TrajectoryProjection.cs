@@ -18,6 +18,7 @@ public class TrajectoryProjection : MonoBehaviour
     void Start()
     {
         CreatePhysicsScene();
+        Physics.autoSimulation = false;
     }
 
     void CreatePhysicsScene()
@@ -28,6 +29,7 @@ public class TrajectoryProjection : MonoBehaviour
         var ghostTilemap = Instantiate(_tilemap, _tilemap.transform);
         ghostTilemap.GetComponent<Renderer>().enabled = false;
         
+        
         foreach (Transform obj in _obstacleParent)
         {
             var ghostObj = Instantiate(obj.gameObject, obj.transform);
@@ -36,28 +38,33 @@ public class TrajectoryProjection : MonoBehaviour
         }
     }
 
-    public void SimulateTrajectory(GameObject crownPrefab, Vector2 pos, Vector2 velocity)
+    public void SimulateTrajectory(CrownPhysics crownPrefab, Vector2 pos, Vector2 velocity, float torque)
     {
         
         var ghostObj = Instantiate(crownPrefab, pos, Quaternion.identity);
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {
-            //child.gameObject.SetActive(false);
+            child.gameObject.SetActive(false);
         }
 
         //ghostObj.GetComponent<SpriteRenderer>().enabled = false;
-        SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
+        
+        SceneManager.MoveGameObjectToScene(ghostObj.gameObject, _simulationScene);
+        ghostObj.Init(new Vector2 (2.0f, 2.0f), torque);
+        Debug.DrawLine(new Vector2(0,0),ghostObj.transform.position);
 
         _line.positionCount = _maxPhysicsFrameIterations;
-        Physics2D.simulationMode = SimulationMode2D.Script;
+        //Physics2D.simulationMode = SimulationMode2D.Script;
+        
+  
         for(int i = 0; i < _maxPhysicsFrameIterations; i++)
         {
             _physicsScene.Simulate(Time.fixedDeltaTime);
             _line.SetPosition(i, ghostObj.transform.position);
 
         }
-        Physics2D.simulationMode = SimulationMode2D.Update;
+        
         Destroy(ghostObj.gameObject);
     }
 }
