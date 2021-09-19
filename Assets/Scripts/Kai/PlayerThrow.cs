@@ -55,7 +55,6 @@ public class PlayerThrow : MonoBehaviour {
 
 	void DoMouseButton() {
 		if (Input.GetMouseButton(0)) {
-			tp.SimulateTrajectory(crownPhysics, this.transform.position, multipliedVector, torqueStrength);
 			if (!isMouseHold) {
 				if (mouseHoldTimer <= 0.0f) {
 					visualCrown.SetActive(false);
@@ -65,8 +64,6 @@ public class PlayerThrow : MonoBehaviour {
 					physicsCrown.layer = LayerMask.NameToLayer("VisualCrown");
 					physicsCrown.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 					originalTransformPos = this.transform.position;
-
-					
 				}
 
 				mouseHoldTimer -= Time.deltaTime;
