@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623993ff40aca6343bc7785c11703f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activePlayer: {fileID: 1872271429}
+  activePlayer: {fileID: 1066005029}
   lastActivePlayer: {fileID: 0}
   loader: {fileID: 1898907054}
   resetPrompt: {fileID: 1187582494}
@@ -4921,6 +4921,11 @@ CompositeCollider2D:
       - {x: 29, y: 3.9999704}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+--- !u!1 &1066005029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2584200930059674697, guid: fdaaad083cd6cff49863424a929700fd, type: 3}
+  m_PrefabInstance: {fileID: 1872271427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1187069140
 GameObject:
   m_ObjectHideFlags: 0
@@ -13370,11 +13375,6 @@ PrefabInstance:
 --- !u!4 &1872271428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2584200930059674696, guid: fdaaad083cd6cff49863424a929700fd, type: 3}
-  m_PrefabInstance: {fileID: 1872271427}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1872271429 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2584200928910845900, guid: fdaaad083cd6cff49863424a929700fd, type: 3}
   m_PrefabInstance: {fileID: 1872271427}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1885470225
