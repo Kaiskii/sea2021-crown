@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281d64eaac7166d4ab6a316e8ecd2239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacles: {fileID: 0}
+  fakeSimCrown: {fileID: 8664737758160632375, guid: 23c297152fe887c488592fb3159f3922, type: 3}
   maxIterations: 500
   _tilemap: {fileID: 0}
 --- !u!120 &6518724281518006824
