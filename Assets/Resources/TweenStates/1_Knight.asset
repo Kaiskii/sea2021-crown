@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace5fb1199faa534798ff464c7113b36, type: 3}
   m_Name: 1_Knight
   m_EditorClassIdentifier: 
-  stateTweenIDs: 
-  crownOffsets: []
-  gooController: {fileID: 0}
+  stateTweenIDs: 00000000000000000100000005000000
+  crownOffsets:
+  - 0
+  - 0
+  - -0.5
+  - -0.75
+  gooController: {fileID: 22100000, guid: 315747367df41a84c892748c4427ca34, type: 2}
   gooTweenID: 2

@@ -9,11 +9,17 @@ public class ActivePlayerManager : MonoBehaviour {
 
   [SerializeField] GameObject activePlayer = null;
   [SerializeField] GameObject lastActivePlayer = null;
+  [SerializeField] LevelLoader loader;
+  [SerializeField] GameObject resetPrompt;
 
   public bool canPickUpOwnCrown = true;
+  public bool shouldReset = false;
 
   [SerializeField]float crownCooldownDuration = 0.5f;
+  [SerializeField]float resetPromptDuration = 10f;
+
   float elapsedTime;
+  float resetTime;
 
   void Update()
   {
@@ -25,6 +31,26 @@ public class ActivePlayerManager : MonoBehaviour {
         elapsedTime = 0;
       }
     }
+
+    if(activePlayer = null){
+      resetTime += Time.deltaTime;
+      if(resetTime >= resetPromptDuration){
+        shouldReset = true;
+        resetTime = 0;
+      }
+    } else {
+      shouldReset = false;
+    }
+
+    if(Input.GetKeyDown(KeyCode.R) && loader){
+      loader.ReloadLevel();
+    }
+
+    if(Input.GetKeyDown(KeyCode.Escape) && loader){
+      loader.ReturnToMenu();
+    }
+
+    if(resetPrompt) resetPrompt.SetActive(shouldReset);
   }
 
   public bool CanRecieveCrown(GameObject me){

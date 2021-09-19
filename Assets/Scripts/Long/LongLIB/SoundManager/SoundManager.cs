@@ -13,6 +13,7 @@ public class SoundManager : Singleton<SoundManager> {
 
   [SerializeField]
   string startingBGM = "BGM1";
+  bool bgmStarted = false;
 
   float fadeElapsedTime;
   float fadeTime;
@@ -28,7 +29,10 @@ public class SoundManager : Singleton<SoundManager> {
       Debug.LogWarning("Failed to load Sound Library! Is it created?");
     }
 
-    PlayMusicWithFade(startingBGM,15f);
+    if(!bgmStarted){
+      PlayMusicWithFade(startingBGM,15f);
+      bgmStarted = true;
+    }
   }
 
   void Update()

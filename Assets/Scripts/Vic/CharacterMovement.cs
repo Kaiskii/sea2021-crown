@@ -237,7 +237,14 @@ public class CharacterMovement : MonoBehaviour
 		characterCollider.offset = new Vector2 (characterCollider.offset.x, colliderHeight[curCrushState]/2);
 
     SoundManager.Instance?.Play(crushSoundName);
-    SoundManager.Instance?.Play(crushSoundName2);
+    if(curCrushState != 0)
+    {
+      SoundManager.Instance?.Play(crushSoundName2);
+    }
+    else
+    {
+      SoundManager.Instance?.Play("CrownSquash2");
+    }
 
     if(!characterState) characterState = GetComponent<CharacterStateController>();
     characterState.IncrementCrushState();

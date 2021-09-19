@@ -30,6 +30,16 @@ public class LevelLoader : MonoBehaviour {
         StartCoroutine(LoadLevel(menu.levelName[count]));
     }
 
+    public void ReloadLevel()
+    {
+      StartCoroutine(LoadLevel(SceneManager.GetActiveScene().name));
+    }
+
+    public void ReturnToMenu()
+    {
+      StartCoroutine(LoadLevel("TitleScreen"));
+    }
+
     public IEnumerator LoadLevel(string levelIndex) {
         transition.SetTrigger("Start");
 
