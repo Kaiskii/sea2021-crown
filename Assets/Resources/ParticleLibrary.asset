@@ -19,3 +19,6 @@ MonoBehaviour:
   - name: WalkDust
     particle: {fileID: 1682501626035591704, guid: f7d2e166ec28f9e4c9c214923e592639, type: 3}
     rotationOffset: 0
+  - name: Squish
+    particle: {fileID: 1846618561666394863, guid: 064fa694c045a624db07a3ccad1307e9, type: 3}
+    rotationOffset: 0

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc532b2a2629a99488b651c96b283649, type: 3}
   m_Name: 1_Crushed1
   m_EditorClassIdentifier: 
-  endSize: {x: 1.08, y: 0.94, z: 0}
+  overrideDefault: 0
+  startSize: {x: 1, y: 0.75, z: 0}
+  endSize: {x: 1.08, y: 0.74, z: 0}
   scaleSpeed: 3
-  waitTime: 0.1
+  waitTime: 0.15
   animCurv:
     serializedVersion: 2
     m_Curve:

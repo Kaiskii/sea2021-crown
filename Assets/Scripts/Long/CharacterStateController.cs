@@ -42,7 +42,7 @@ public class CharacterStateController : MonoBehaviour
       canSquish = false;
       animator.runtimeAnimatorController = data.gooController;
       idle.SetTweenID(data.gooTweenID);
-      if(bob) bob.SetOffset(-1.4f);
+      if(bob) bob.SetOffset(-1.8f);
     }
 
   }

@@ -972,6 +972,9 @@ MonoBehaviour:
   walkParticleName: WalkDust
   jumpParticleName: CrownPuff
   jumpSoundName: JumpPeasant
+  crushParticleName: Squish
+  crushSoundName: CrownCrunch
+  crushSoundName2: CrownSquash1
 --- !u!50 &857170304
 Rigidbody2D:
   serializedVersion: 4
@@ -1005,8 +1008,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9623af1657559740b6bfe0be89718dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panicTweenID: 1
-  normalTweenID: 0
+  TweenStateID: 0
+  bob: {fileID: 453353888}
 --- !u!114 &857170306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,6 +1216,9 @@ MonoBehaviour:
   walkParticleName: WalkDust
   jumpParticleName: CrownPuff
   jumpSoundName: JumpPeasant
+  crushParticleName: Squish
+  crushSoundName: CrownCrunch
+  crushSoundName2: CrownSquash1
 --- !u!61 &881191268
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1272,8 +1278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9623af1657559740b6bfe0be89718dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panicTweenID: 1
-  normalTweenID: 0
+  TweenStateID: 0
+  bob: {fileID: 1896487186}
 --- !u!114 &881191271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16279,6 +16285,9 @@ MonoBehaviour:
   walkParticleName: WalkDust
   jumpParticleName: CrownPuff
   jumpSoundName: JumpPeasant
+  crushParticleName: Squish
+  crushSoundName: CrownCrunch
+  crushSoundName2: CrownSquash1
 --- !u!70 &1318600330
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -16328,8 +16337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9623af1657559740b6bfe0be89718dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panicTweenID: 1
-  normalTweenID: 0
+  TweenStateID: 0
+  bob: {fileID: 1725625094}
 --- !u!114 &1318600333
 MonoBehaviour:
   m_ObjectHideFlags: 0

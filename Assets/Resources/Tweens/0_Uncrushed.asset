@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc532b2a2629a99488b651c96b283649, type: 3}
   m_Name: 0_Uncrushed
   m_EditorClassIdentifier: 
+  overrideDefault: 0
+  startSize: {x: 1, y: 1, z: 0}
   endSize: {x: 1.05, y: 0.98, z: 1}
   scaleSpeed: 3
   waitTime: 0.2

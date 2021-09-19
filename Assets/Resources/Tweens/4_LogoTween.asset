@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc532b2a2629a99488b651c96b283649, type: 3}
   m_Name: 4_LogoTween
   m_EditorClassIdentifier: 
+  overrideDefault: 0
+  startSize: {x: 3, y: 3, z: 0}
   endSize: {x: 2.95, y: 3.05, z: 0}
   scaleSpeed: 1
   waitTime: 0.2
