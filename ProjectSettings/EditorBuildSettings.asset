@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level07Backup.unity
     guid: b38c2f0c855f4be4fba40b0dacc155c9
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level08Backup.unity
+    guid: 736e67748e82c7e4789a8c58185456d1
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level09Backup.unity
+    guid: 58b9a1b682554b546b07d97826e84e41
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level10Backup.unity
+    guid: 52c590756a961774f9642073fab3f3f3
   m_configObjects: {}
