@@ -5,28 +5,28 @@ using UnityEditor;
 
 public class ParticleLibrary : ScriptableObject
 {
-#if UNITY_EDITOR
   [SerializeField]
   List<ParticleAsset> particles;
-
-  [MenuItem("LongLib/Create Particle Library")]
-  private static void TryGetLibrary()
-  {
-      if (!AssetDatabase.IsValidFolder("Assets/Resources"))
-      {
-          Debug.Log("No Resource Folder! Creating...");
-          AssetDatabase.CreateFolder("Assets", "Resources");
-      }
-      
-      var index = Resources.Load<ParticleLibrary>("ParticleLibrary");
-      if (index == null) 
-      {
-          Debug.Log("Could not find ParticleLibrary! Creating...");
-          index = CreateInstance<ParticleLibrary>();
-          UnityEditor.AssetDatabase.CreateAsset(index, "Assets/Resources/ParticleLibrary.asset");
-      }
-  }
-#endif
+  
+  #if UNITY_EDITOR
+    [MenuItem("LongLib/Create Particle Library")]
+    private static void TryGetLibrary()
+    {
+        if (!AssetDatabase.IsValidFolder("Assets/Resources"))
+        {
+            Debug.Log("No Resource Folder! Creating...");
+            AssetDatabase.CreateFolder("Assets", "Resources");
+        }
+        
+        var index = Resources.Load<ParticleLibrary>("ParticleLibrary");
+        if (index == null) 
+        {
+            Debug.Log("Could not find ParticleLibrary! Creating...");
+            index = CreateInstance<ParticleLibrary>();
+            UnityEditor.AssetDatabase.CreateAsset(index, "Assets/Resources/ParticleLibrary.asset");
+        }
+    }
+  #endif
   static Dictionary<string, ParticleAsset> particleDictionary;
 
   [RuntimeInitializeOnLoadMethod]

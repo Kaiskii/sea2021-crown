@@ -10,6 +10,7 @@ public class PlayerReceive : MonoBehaviour {
   [SerializeField] GameObject nearestPawn = null;
   [SerializeField] bool havePassed = false;
   float closestDistance = 9999;
+  float minDistance = 1;
 
   CinemachineVirtualCamera cvc;
 
@@ -80,7 +81,8 @@ public class PlayerReceive : MonoBehaviour {
           continue;
         }
 
-        if(Vector3.Distance(this.gameObject.transform.position,nearbyPawns[i].transform.position) < closestDistance){
+        float distance = Vector3.Distance(this.gameObject.transform.position,nearbyPawns[i].transform.position);
+        if(distance < closestDistance && distance >= minDistance){
           nearestPawn = nearbyPawns[i];
         }
       }

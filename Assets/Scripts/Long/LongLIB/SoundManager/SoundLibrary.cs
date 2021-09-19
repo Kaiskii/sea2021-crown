@@ -10,13 +10,13 @@ public class SoundLibrary : ScriptableObject
   public int maxSounds = 3;
   [Space]
 
-#if UNITY_EDITOR
   [SerializeField]
   List<SoundAsset> effectClips;
 
   [SerializeField]
    List<SoundAsset> musicClips;
-
+   
+#if UNITY_EDITOR
   [MenuItem("LongLib/Create Sound Library")]
   private static void TryGetLibrary()
   {
