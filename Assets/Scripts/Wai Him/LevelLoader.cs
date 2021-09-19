@@ -19,15 +19,15 @@ public class LevelLoader : MonoBehaviour {
     }*/
 
     public void LoadLevelGUI(SwipeMenu menu) {
-        int count = 0;
-        for (int i = 0; i < menu.transform.childCount; i++) {
-            if (EventSystem.current.currentSelectedGameObject.name == menu.transform.GetChild(i).name) {
-                count = i;
-                break;
-            }
-        }
+      int count = 0;
+      for (int i = 0; i < menu.transform.childCount; i++) {
+          if (EventSystem.current.currentSelectedGameObject.name == menu.transform.GetChild(i).name) {
+              count = i;
+              break;
+          }
+      }
 
-        StartCoroutine(LoadLevel(menu.levelName[count]));
+      StartCoroutine(LoadLevel(menu.levelName[count]));
     }
 
     public void ReloadLevel()

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Master/Master.unity
     guid: 48461763d638b204ba648c64f766d9d3
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level01Backup.unity
+    guid: b98ddffa89401ec4b969d17a461da5fa
   m_configObjects: {}
