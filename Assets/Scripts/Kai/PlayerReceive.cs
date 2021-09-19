@@ -8,6 +8,7 @@ public class PlayerReceive : MonoBehaviour {
 
   [SerializeField] List<GameObject> nearbyPawns;
   [SerializeField] GameObject nearestPawn = null;
+  [SerializeField] bool havePassed = false;
   float closestDistance = 9999;
 
   CinemachineVirtualCamera cvc;
@@ -19,7 +20,7 @@ public class PlayerReceive : MonoBehaviour {
 
   void Update(){
     if (ActivePlayerManager.Instance.CanThrowCrown(this.gameObject)) {
-      if(Input.GetKeyDown(KeyCode.E) && nearestPawn){
+      if(Input.GetKeyDown(KeyCode.E) && nearestPawn && !nearestPawn.GetComponent<PlayerReceive>().havePassed){
 
         this.GetComponent<CharacterMovement>().enabled = false;
         visualCrown.SetActive(false);
@@ -30,6 +31,8 @@ public class PlayerReceive : MonoBehaviour {
         nearestPawn.GetComponent<CharacterMovement>().enabled = true;
         nearestPawn.GetComponent<PlayerReceive>().visualCrown.SetActive(true);
         nearestPawn.GetComponent<PlayerReceive>().CheckForNearestPawn();
+        nearestPawn.GetComponent<PlayerReceive>().havePassed = true;
+        this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
       }
     }
   }
@@ -81,7 +84,7 @@ public class PlayerReceive : MonoBehaviour {
         }
       }
 
-      if(nearestPawn){
+      if(nearestPawn && !nearestPawn.GetComponent<PlayerReceive>().havePassed){
         WorldUIPrompt.Instance.ShowPrompt(nearestPawn,new Vector3(0,3,0));
       } else {
         WorldUIPrompt.Instance.HidePrompt();
