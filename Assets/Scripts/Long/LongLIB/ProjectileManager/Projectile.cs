@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
   public void OnCreate(int id)
   {
     projectileID = id;
-    projectileData = ResourceIndex.GetAsset<ProjectileDataSO>(projectileID);
+    projectileData = ResourceIndex.GetAsset<ProjectileDataSO>(projectileID,"");
 
     if(!projectileData){
       Debug.LogWarning("Trying to fire non-existent projectile with ID:"+projectileID+"!");

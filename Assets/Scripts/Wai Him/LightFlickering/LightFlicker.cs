@@ -18,7 +18,7 @@ public class LightFlicker : MonoBehaviour {
     void Start() {
         fireLight = GetComponent<Light2D>();
 
-        lightData = ResourceIndex.GetAsset<LightFlickerDataSO>(lightDataID);
+        lightData = ResourceIndex.GetAsset<LightFlickerDataSO>(lightDataID,"LightFlickerDataSO");
         if(!lightData) return;
 
         flickerTimer = lightData.flickerTime;

@@ -18,7 +18,7 @@ public class playerIdle : MonoBehaviour {
 
   public void SetTweenID(int id) {
     tweenID = id;
-    tweenData = ResourceIndex.GetAsset<PlayerTweenSO>(tweenID);
+    tweenData = ResourceIndex.GetAsset<PlayerTweenSO>(tweenID,"PlayerTweenSO");
 
     if(!tweenData || fx == null){
       return;

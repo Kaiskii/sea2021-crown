@@ -19,22 +19,32 @@ public class CharacterStateController : MonoBehaviour
 
   void Start()
   {
-    data = ResourceIndex.GetAsset<CharacterTweenStatesSO>(TweenStateID);
+    data = ResourceIndex.GetAsset<CharacterTweenStatesSO>(TweenStateID,"CharacterTweenStatesSO");
 
     idle = GetComponent<playerIdle>();
     animator = GetComponent<Animator>();
     rend = GetComponent<SpriteRenderer>();
 
-    idle.SetTweenID(data.stateTweenIDs[0]);
+    if(data){
+      idle.SetTweenID(data.stateTweenIDs[0]);
+    } else {
+      Debug.Log("TEST");
+    }
+
   }
 
   public void IncrementCrushState()
   {
     if (!canSquish) return;
 
+    if(!idle) idle = GetComponent<playerIdle>();
+    if(!animator) animator = GetComponent<Animator>();
+    if(!rend) rend = GetComponent<SpriteRenderer>();
+
     animator.SetBool("IsPanicking",true);
     currentState++;
 
+    if(!data)return;
     if(currentState < data.stateTweenIDs.Count){
       idle.SetTweenID(data.stateTweenIDs[currentState]);
       if(bob) bob.SetOffset(data.crownOffsets[currentState]);

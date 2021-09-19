@@ -22,7 +22,7 @@ public class ExampleIndexFetch : MonoBehaviour
 
         Debug.Log("Getting resource by ID!");
         //GET ASSET BY ID
-        var resourceByID = ResourceIndex.GetAsset<ExampleResourceSO>(0);
+        var resourceByID = ResourceIndex.GetAsset<ExampleResourceSO>(0,"");
         if(resourceByID) Debug.Log(resourceByID.data);
     }
 }
